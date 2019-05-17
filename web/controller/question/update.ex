@@ -41,7 +41,9 @@ defmodule StackoverflowCloneL.Controller.Question.Update do
               ### 2. dodaiに対してrequestするためのstructを作る
               ### 3. クライアントにレスポンスを返す(dodaiのresponse bodyがいつもと違うことに注意)
               # 1. Requestの構築
-              req_body = %Dodai.UpdateDedicatedDataEntityRequestBody{data: %{"$set" => Map.from_struct(validated)}}
+              #IO.inspect validated
+              #IO.inspect Map.from_struct(validated)
+              req_body = %Dodai.UpdateDedicatedDataEntityRequestBody{data: %{"$set" => Enum.reject(Map.from_struct(validated), fn {_k, v} -> is_nil(v) end) |> Map.new()}}
               req = Dodai.UpdateDedicatedDataEntityRequest.new(SD.default_group_id(),"Question", my_id,SD.root_key(),req_body)
 
               # 2. G2G通信を実行する
