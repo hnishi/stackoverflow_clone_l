@@ -6,7 +6,7 @@ defmodule StackoverflowCloneL.Controller.Question.Show do
 
   def show(%Antikythera.Conn{request: %Antikythera.Request{path_matches: %{id: my_id}}} = conn) do
     # Implement me
-    #IO.inspect(conn)
+    IO.inspect(conn)
     #IO.inspect(my_id)
 
     req = Dodai.RetrieveDedicatedDataEntityRequest.new(SD.default_group_id(),"Question",my_id,SD.root_key())
