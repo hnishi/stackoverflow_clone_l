@@ -1,7 +1,6 @@
 defmodule StackoverflowCloneL.Controller.Question.Create do
   use StackoverflowCloneL.Controller.Application
 
-  def create(_conn) do
-    # Implement me
+  def create(conn) do
   end
 end
