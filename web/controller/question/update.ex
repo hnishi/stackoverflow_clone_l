@@ -10,11 +10,20 @@ defmodule StackoverflowCloneL.Controller.Question.Update do
     in_param = conn.request.body
     #IO.inspect(conn)
     #IO.inspect(my_id)
-    IO.inspect "1"
+    #IO.inspect "1"
 
     # 1. Requestの構築
-    #data = %{"title" => in_param["title"], "body" => in_param["body"]}
-    data = %{"title" => in_param["title"]}
+
+
+    data = %{
+      "comments"        => [],
+      "like_voter_ids"    => [],
+      "dislike_voter_ids" => [],
+      "title"           => in_param["title"],
+      "body"            => in_param["body"],
+
+      "user_id"          => conn.assigns.me["_id"],
+    }
 
     IO.inspect "2"
     Dodai.UpdateDedicatedDataEntityRequestBody
