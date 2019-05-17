@@ -1,7 +1,17 @@
+use Croma
+
+defmodule StackoverflowCloneL.Controller.Question.UpdateRequestBody do
+  alias StackoverflowCloneL.Controller.Question.Helper.Params
+
+  use Croma.Struct, fields: [
+    title:  Params.Title,
+  ]
+end
+
 defmodule StackoverflowCloneL.Controller.Question.Update do
   use StackoverflowCloneL.Controller.Application
   alias StackoverflowCloneL.Dodai, as: SD
-  alias StackoverflowCloneL.Controller.Question.{Helper, CreateRequestBody}
+  alias StackoverflowCloneL.Controller.Question.{Helper, UpdateRequestBody}
   alias StackoverflowCloneL.Error.BadRequestError
 
   plug StackoverflowCloneL.Plug.FetchMe, :fetch, []
@@ -10,22 +20,13 @@ defmodule StackoverflowCloneL.Controller.Question.Update do
     # Implement me
     #IO.inspect conn
     #IO.inspect "1"
-    case CreateRequestBody.new(conn.request.body) do
+    case UpdateRequestBody.new(conn.request.body) do
       {:error, _}      ->
         ErrorJson.json_by_error(conn,BadRequestError.new())
       {:ok, validated} ->
         # 1. Requestの構築
-        in_param = Map.from_struct(validated)
-        data = %{
-          "comments"        => [],
-          "like_voter_ids"    => [],
-          "dislike_voter_ids" => [],
-          "title"           => in_param[:title],
-          "body"            => in_param[:body],
-          "user_id"         => conn.assigns.me["_id"],
-        }
         Dodai.UpdateDedicatedDataEntityRequestBody
-        req_body = %Dodai.UpdateDedicatedDataEntityRequestBody{data: data}
+        req_body = %Dodai.UpdateDedicatedDataEntityRequestBody{data: %{"$set" => Map.from_struct(validated)}}
         req = Dodai.UpdateDedicatedDataEntityRequest.new(SD.default_group_id(),"Question", my_id,SD.root_key(),req_body)
 
         # 2. G2G通信を実行する
