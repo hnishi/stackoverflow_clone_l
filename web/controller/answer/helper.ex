@@ -22,9 +22,6 @@ defmodule StackoverflowCloneL.Controller.Answer.Helper do
 
 
   defmodule Params do
-    defmodule Title do
-      use Croma.SubtypeOfString, pattern: ~r/\A.{1,100}\z/u
-    end
     defmodule Body do
       use Croma.SubtypeOfString, pattern: ~r/\A.{1,3000}\z/u
     end
