@@ -24,6 +24,13 @@ defmodule StackoverflowCloneL.Controller.Question.Create do
       {:error, _}      ->
         ErrorJson.json_by_error(conn,BadRequestError.new())
       {:ok, validated} ->
+        IO.inspect validated
+        in_param = conn.request.body
+        IO.inspect in_param
+        #%StackoverflowCloneL.Controller.Question.CreateRequestBody%{title : title}=validated
+        #IO.inspect title
+        Conn.json(conn, 200, %{"TITLE" => in_param["title"],"BODY" => in_param["body"]})
+
         # 1. Requestの構築
         in_param = Map.from_struct(validated)
         #IO.inspect in_param
