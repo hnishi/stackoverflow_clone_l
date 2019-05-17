@@ -9,8 +9,6 @@ defmodule StackoverflowCloneL.Controller.Question.Update do
   def update(%Antikythera.Conn{request: %Antikythera.Request{path_matches: %{id: my_id}}} = conn) do
     # Implement me
     #IO.inspect conn
-    in_param = conn.request.body
-
     #IO.inspect "1"
     case CreateRequestBody.new(conn.request.body) do
       {:error, _}      ->
