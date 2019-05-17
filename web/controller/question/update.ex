@@ -1,3 +1,6 @@
+use Croma
+
+
 defmodule StackoverflowCloneL.Controller.Question.Update do
   use StackoverflowCloneL.Controller.Application
   alias StackoverflowCloneL.Dodai, as: SD
@@ -11,11 +14,10 @@ defmodule StackoverflowCloneL.Controller.Question.Update do
     in_param = conn.request.body
     #IO.inspect(conn)
     #IO.inspect(my_id)
-    IO.inspect "1"
 
     # 1. Requestの構築
-    #data = %{"title" => in_param["title"], "body" => in_param["body"]}
-    data = %{"title" => in_param["title"]}
+    data = %{"title" => in_param["title"], "body" => in_param["body"]}
+    #data = %{"title" => in_param["title"]}
 
     IO.inspect "2"
     Dodai.UpdateDedicatedDataEntityRequestBody

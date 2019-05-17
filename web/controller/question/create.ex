@@ -23,10 +23,16 @@ defmodule StackoverflowCloneL.Controller.Question.Create do
       {:error, _}      ->
         ErrorJson.json_by_error(conn,BadRequestError.new())
       {:ok, validated} ->
+        IO.inspect validated
         in_param = conn.request.body
+        IO.inspect in_param
+        #%StackoverflowCloneL.Controller.Question.CreateRequestBody%{title : title}=validated
+        #IO.inspect title
         Conn.json(conn, 200, %{"TITLE" => in_param["title"],"BODY" => in_param["body"]})
 
         # 1. Requestの構築
+        #data = %{"title" => in_param["title"], "body" => in_param["body"]}
+        #req_body = %Dodai.CreateDedicatedDataEntityRequestBody{data: data}
         req_body = %Dodai.CreateDedicatedDataEntityRequestBody{data: Map.from_struct(validated)}
         req = Dodai.CreateDedicatedDataEntityRequest.new(SD.default_group_id(),"Question","rkey_0ywy9jSuXktTvzF",req_body)
 
