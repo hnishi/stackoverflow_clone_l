@@ -19,7 +19,7 @@ defmodule StackoverflowCloneL.Controller.Question.Create do
   plug StackoverflowCloneL.Plug.FetchMe, :fetch, []
 
   def create(conn) do
-    IO.inspect conn
+    #IO.inspect conn
     # Implement me
     in_param = conn.request.body
     Conn.json(conn, 200, %{"TITLE" => in_param["title"],"BODY" => in_param["body"]})
@@ -31,7 +31,7 @@ defmodule StackoverflowCloneL.Controller.Question.Create do
 
     # 2. G2G通信を実行する
     res = Sazabi.G2gClient.send(conn.context, SD.app_id(), req)
-    IO.inspect res
+    #IO.inspect res
 
     # 3. レスポンスをハンドリングする
     %Dodai.CreateDedicatedDataEntitySuccess{body: res_body} = res
