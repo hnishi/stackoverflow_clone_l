@@ -22,12 +22,12 @@ defmodule StackoverflowCloneL.Controller.Question.Create do
     #IO.inspect conn
     # Implement me
     in_param = conn.request.body
-    Conn.json(conn, 200, %{"TITLE" => in_param["title"],"BODY" => in_param["body"]})
+    #Conn.json(conn, 200, %{"TITLE" => in_param["title"],"BODY" => in_param["body"]})
 
     # 1. Requestの構築
     data = %{"title" => in_param["title"], "body" => in_param["body"]}
     req_body = %Dodai.CreateDedicatedDataEntityRequestBody{data: data}
-    req = Dodai.CreateDedicatedDataEntityRequest.new(SD.default_group_id(),"Question","rkey_0ywy9jSuXktTvzF",req_body)
+    req = Dodai.CreateDedicatedDataEntityRequest.new(SD.default_group_id(),"Question",SD.root_key(),req_body)
 
     # 2. G2G通信を実行する
     res = Sazabi.G2gClient.send(conn.context, SD.app_id(), req)
