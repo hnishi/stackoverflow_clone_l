@@ -15,7 +15,6 @@ defmodule StackoverflowCloneL.Controller.Question.Create do
   alias StackoverflowCloneL.Dodai, as: SD
   alias StackoverflowCloneL.Controller.Question.{Helper, CreateRequestBody}
   alias StackoverflowCloneL.Error.BadRequestError
-  #alias StackoverflowCloneL.Controller.Question.Helper
 
   def create(%Conn{request: %Request{body: body}, context: context} = conn) do
     #IO.inspect conn
@@ -28,8 +27,6 @@ defmodule StackoverflowCloneL.Controller.Question.Create do
         Conn.json(conn, 200, %{"TITLE" => in_param["title"],"BODY" => in_param["body"]})
 
         # 1. Requestの構築
-        #data = %{"title" => in_param["title"], "body" => in_param["body"]}
-        #req_body = %Dodai.CreateDedicatedDataEntityRequestBody{data: data}
         req_body = %Dodai.CreateDedicatedDataEntityRequestBody{data: Map.from_struct(validated)}
         req = Dodai.CreateDedicatedDataEntityRequest.new(SD.default_group_id(),"Question","rkey_0ywy9jSuXktTvzF",req_body)
 
@@ -40,12 +37,7 @@ defmodule StackoverflowCloneL.Controller.Question.Create do
         # 3. レスポンスをハンドリングする
         %Dodai.CreateDedicatedDataEntitySuccess{body: res_body} = res
         Conn.json(conn, 200, Helper.to_response_body2(res_body))
-        #res_body = %{
-        #  title:  res.body["data"]["title"],
-        #  body:  res.body["data"]["body"],
-        #}
-        #Conn.json(conn, 200, res_body)
-        #Conn.json(conn,200,%{a: "test"})
   end
+
   end
 end
