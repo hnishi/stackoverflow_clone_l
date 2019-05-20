@@ -17,8 +17,8 @@ defmodule StackoverflowCloneL.Controller.Question.Helper do
   end
 
   defun to_response_body2(map :: map) :: map do
-    #Map.fetch!(map, "data") |> Map.put("user id", map["_id"])
-    Map.fetch!(map, "data")
+    Map.fetch!(map, "data") |> Map.put("id", map["_id"]) |>  Map.put("created_at", map["createdAt"])
+    #Map.fetch!(map, "data")
   end
 
 
