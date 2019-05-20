@@ -23,7 +23,7 @@ defmodule StackoverflowCloneL.Controller.Question.UpdateTest do
           #IO.inspect "UPDATE!!!"
           #IO.inspect update_req
           # update_reqについての必要に応じてassertする
-          IO.inspect update_req
+         # IO.inspect update_req
           assert update_req.body ==  %Dodai.UpdateDedicatedDataEntityRequestBody{
             data: %{"$set" => %{title: "new title"}},
             owner: nil,
@@ -36,7 +36,7 @@ defmodule StackoverflowCloneL.Controller.Question.UpdateTest do
     end)
 
     res = Req.put_json(@api_prefix, @body, @header)
-    IO.inspect res
+    #IO.inspect res
     assert res.status               == 200
     assert Poison.decode!(res.body) == StackoverflowCloneL.TestData.QuestionData.dodai()["data"]
   end
