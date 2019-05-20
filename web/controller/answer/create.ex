@@ -48,7 +48,7 @@ defmodule StackoverflowCloneL.Controller.Answer.Create do
 
             # 2. G2G通信を実行する
             res = Sazabi.G2gClient.send(context, SD.app_id(), req)
-
+            #IO.inspect(res)
             # 3. レスポンスをハンドリングする
             %Dodai.CreateDedicatedDataEntitySuccess{body: res_body} = res
             Conn.json(conn, 200, Helper.to_response_body2(res_body))
