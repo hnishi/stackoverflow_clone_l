@@ -24,7 +24,7 @@ defmodule StackoverflowCloneL.Controller.Answer.Update do
       {:error, _}      ->
         ErrorJson.json_by_error(conn,BadRequestError.new())
       {:ok, validated} ->
-        IO.inspect validated
+       # IO.inspect validated
 
         # answerのuser_idとログインユーザの_idが一致するか確認する
         with_answer(conn, fn answer ->
