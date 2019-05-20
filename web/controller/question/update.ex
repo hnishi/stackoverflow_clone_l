@@ -19,8 +19,9 @@ defmodule StackoverflowCloneL.Controller.Question.Update do
 
   def update(%Antikythera.Conn{request: %Antikythera.Request{path_matches: %{id: my_id}}} = conn) do
     # Implement me
-    #IO.inspect conn
+    #IO.inspect conn.request.body
     #IO.inspect "1"
+    #IO.inspect UpdateRequestBody.new(conn.request.body)
     case UpdateRequestBody.new(conn.request.body) do
       {:error, _}      ->
         ErrorJson.json_by_error(conn,BadRequestError.new())
@@ -50,7 +51,7 @@ defmodule StackoverflowCloneL.Controller.Question.Update do
 
               # 3. レスポンスをハンドリングする
               %Dodai.UpdateDedicatedDataEntitySuccess{body: res_body} = res
-              Conn.json(conn, 200, Helper.to_response_body2(res_body))
+              Conn.json(conn, 200, Helper.to_response_body(res_body))
             _ ->
               ## 一致しない場合、下記のようにエラーを返す
               ErrorJson.json_by_error(conn, StackoverflowCloneL.Error.CredentialError.new())
