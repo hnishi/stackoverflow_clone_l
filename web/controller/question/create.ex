@@ -52,6 +52,7 @@ defmodule StackoverflowCloneL.Controller.Question.Create do
 
         # 3. レスポンスをハンドリングする
         %Dodai.CreateDedicatedDataEntitySuccess{body: res_body} = res
+        #IO. inspect res_body
         Conn.json(conn, 200, Helper.to_response_body2(res_body))
    end
   end

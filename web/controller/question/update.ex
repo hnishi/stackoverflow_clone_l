@@ -3,7 +3,6 @@ use Croma
 defmodule StackoverflowCloneL.Controller.Question.UpdateRequestBody do
   alias StackoverflowCloneL.Controller.Question.Helper.Params
 
-  # これでは、body だけ更新する場合にエラーを吐く --> 修正必要
   use Croma.Struct, fields: [
     title:  Croma.TypeGen.nilable(Params.Title),
     body:  Croma.TypeGen.nilable(Params.Body),
