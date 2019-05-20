@@ -17,7 +17,7 @@ defmodule StackoverflowCloneL.Controller.Answer.Index do
   def index(%Conn{request: %Request{query_params: query_params}, context: context} = conn) do
     # Implement me
     case IndexRequestParams.new(query_params) do
-      {:errir, _}      ->
+      {:error, _}      ->
         ErrorJson.json_by_error(conn,BadRequestError.new())
       {:ok, validated} ->
         query = convert_to_dodai_req_query(validated)
