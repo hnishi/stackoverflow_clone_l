@@ -17,7 +17,7 @@ defmodule StackoverflowCloneL.Controller.Comment.Create do
   def create(conn) do
     # Implement me
     case CreateRequestBody.new(conn.request.body) do
-      {:error, _}      ->
+      {:error, _}       ->
         ErrorJson.json_by_error(conn,BadRequestError.new())
       {:ok, _validated} ->
         #IO.inspect Enum.at( conn.request.path_info, 1 )
