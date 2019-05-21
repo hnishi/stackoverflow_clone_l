@@ -11,21 +11,30 @@ defmodule StackoverflowCloneL.Controller.Vote.Create do
     with_question(conn, fn question ->
       #IO.inspect question
 
+      [type_vote_req, type_vote_opp] = case Enum.at(conn.request.path_info, 4) do
+        "like_vote"    -> ["like_voter_ids", "dislike_voter_ids"]
+        "dislike_vote" -> ["dislike_voter_ids", "like_voter_ids"]
+        end
+
       # ユーザーが既に vote している場合はエラーを返す。
-      list1 = question["data"]["like_voter_ids"] ++ question["data"]["dislike_voter_ids"]
-      case Enum.any?(list1 , fn(x) -> x==conn.assigns.me["_id"] end) do
+      list_db_req = question["data"][type_vote_req]
+      list_db_opp = question["data"][type_vote_opp]
+      case Enum.any?(list_db_req , fn(x) -> x==conn.assigns.me["_id"] end) do
       true -> ErrorJson.json_by_error(conn,BadRequestError.new())
       false ->
+        list_db_opp = if Enum.any?(list_db_opp , fn(x) -> x==conn.assigns.me["_id"] end),
+          do: List.delete(list_db_opp, conn.assigns.me["_id"])
+        list_db_req = list_db_req ++ [conn.assigns.me["_id"]]
 
       # 1. Requestの構築
-      req_body = case Enum.at(conn.request.path_info, 4) do
-        "like_vote" ->
-          %Dodai.UpdateDedicatedDataEntityRequestBody{data: %{"$set" => %{"like_voter_ids" => question["data"]["like_voter_ids"] ++ [conn.assigns.me["_id"]]}}}
-        "dislike_vote" ->
-          %Dodai.UpdateDedicatedDataEntityRequestBody{data: %{"$set" => %{"dislike_voter_ids" => question["data"]["dislike_voter_ids"] ++ [conn.assigns.me["_id"]]}}}
-        _ ->
-          ErrorJson.json_by_error(conn,BadRequestError.new())
-        end
+      req_body =
+        %Dodai.UpdateDedicatedDataEntityRequestBody{data:
+          %{"$set" => %{
+            type_vote_req => list_db_req,
+            type_vote_opp => list_db_opp,
+            }
+          }
+        }
 
       req = Dodai.UpdateDedicatedDataEntityRequest.new(SD.default_group_id(), "Question", Enum.at(conn.request.path_info, 2),SD.root_key(),req_body)
 
@@ -43,6 +52,8 @@ defmodule StackoverflowCloneL.Controller.Vote.Create do
       end
     end)
   end
+
+
 
   def with_question(%Conn{request: %Request{path_matches: %{id: id}}} = conn, f) do
     req = Dodai.RetrieveDedicatedDataEntityRequest.new(SD.default_group_id(), "Question", id, SD.root_key())

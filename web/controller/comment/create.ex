@@ -47,7 +47,8 @@ defmodule StackoverflowCloneL.Controller.Comment.Create do
 
           # 3. レスポンスをハンドリングする
           %Dodai.UpdateDedicatedDataEntitySuccess{body: res_body} = res
-          out_body = Enum.at(Enum.take(res_body["data"]["comments"],-1),0)
+          #out_body = Enum.at(Enum.take(res_body["data"]["comments"],-1),0)
+          out_body = List.last(res_body["data"]["comments"])
           Conn.json(conn, 200, out_body)
         end)
     end
