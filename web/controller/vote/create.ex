@@ -1,6 +1,7 @@
 defmodule StackoverflowCloneL.Controller.Vote.Create do
   use StackoverflowCloneL.Controller.Application
   alias StackoverflowCloneL.Dodai, as: SD
+  alias StackoverflowCloneL.Error.BadRequestError
 
   plug StackoverflowCloneL.Plug.FetchMe, :fetch, []
 
@@ -10,12 +11,20 @@ defmodule StackoverflowCloneL.Controller.Vote.Create do
     with_question(conn, fn question ->
       #IO.inspect question
 
+      # ユーザーが既に vote している場合はエラーを返す。
+      list1 = question["data"]["like_voter_ids"] ++ question["data"]["dislike_voter_ids"]
+      case Enum.any?(list1 , fn(x) -> x==conn.assigns.me["_id"] end) do
+      true -> ErrorJson.json_by_error(conn,BadRequestError.new())
+      false ->
+
       # 1. Requestの構築
       req_body = case Enum.at(conn.request.path_info, 4) do
         "like_vote" ->
           %Dodai.UpdateDedicatedDataEntityRequestBody{data: %{"$set" => %{"like_voter_ids" => question["data"]["like_voter_ids"] ++ [conn.assigns.me["_id"]]}}}
         "dislike_vote" ->
           %Dodai.UpdateDedicatedDataEntityRequestBody{data: %{"$set" => %{"dislike_voter_ids" => question["data"]["dislike_voter_ids"] ++ [conn.assigns.me["_id"]]}}}
+        _ ->
+          ErrorJson.json_by_error(conn,BadRequestError.new())
         end
 
       req = Dodai.UpdateDedicatedDataEntityRequest.new(SD.default_group_id(), "Question", Enum.at(conn.request.path_info, 2),SD.root_key(),req_body)
@@ -31,6 +40,7 @@ defmodule StackoverflowCloneL.Controller.Vote.Create do
         "dislike_voter_ids" => res_body["data"]["dislike_voter_ids"],
       }
       Conn.json(conn, 200, out_body)
+      end
     end)
   end
 
