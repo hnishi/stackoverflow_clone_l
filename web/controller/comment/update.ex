@@ -29,25 +29,26 @@ defmodule StackoverflowCloneL.Controller.Comment.Update do
 
         with_comment(conn, name_collection, fn question ->
           comments = question["data"]["comments"]
-          dedicated_comment_index = Enum.find_index(comments, fn comment -> comment["id"] == comment_id end)
+          chosen_comment_index = Enum.find_index(comments, fn comment -> comment["id"] == comment_id end)
+
           ## commentが存在するか確認
-          case dedicated_comment_index do
+          case chosen_comment_index do
             nil ->
               ErrorJson.json_by_error(conn, StackoverflowCloneL.Error.ResourceNotFoundError.new())
             _   ->
-              dedicated_comment = Enum.at(comments,dedicated_comment_index)
+              chosen_comment = Enum.at(comments,chosen_comment_index)
               ## user_idとcommentのuser_idが一致するか確認する
-              case dedicated_comment["user_id"] do
+              case chosen_comment["user_id"] do
                 ^user_id ->
                   ##user_idとcommentのuser_idが一致した場合
                   #1. Requestの構築
                   data_comment = %{
-                    "id" => dedicated_comment["id"],
-                    "user_id" => dedicated_comment["user_id"],
+                    "id" => chosen_comment["id"],
+                    "user_id" => chosen_comment["user_id"],
                     "body" => validated.body,
-                    "created_at" =>  dedicated_comment["created_at"],
+                    "created_at" =>  chosen_comment["created_at"],
                   }
-                  update_comments = List.replace_at(comments,dedicated_comment_index,data_comment)
+                  update_comments = List.replace_at(comments,chosen_comment_index,data_comment)
                   req_body = %Dodai.UpdateDedicatedDataEntityRequestBody{data: %{"$set" => %{"comments" => update_comments}}}
                   req = Dodai.UpdateDedicatedDataEntityRequest.new(SD.default_group_id(),name_collection, question_id, SD.root_key(), req_body)
 
@@ -56,7 +57,7 @@ defmodule StackoverflowCloneL.Controller.Comment.Update do
 
                   # 3. レスポンスをハンドリングする
                   %Dodai.UpdateDedicatedDataEntitySuccess{body: res_body} = res
-                  update_comment = Enum.at(res_body["data"]["comments"],dedicated_comment_index)
+                  update_comment = Enum.at(res_body["data"]["comments"],chosen_comment_index)
                   Conn.json(conn, 200, update_comment)
                 _ ->
                   ## user_idとcommentのuser_idが一致しない場合
