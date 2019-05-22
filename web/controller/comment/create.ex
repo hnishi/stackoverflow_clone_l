@@ -32,7 +32,7 @@ defmodule StackoverflowCloneL.Controller.Comment.Create do
 
           # 1. Requestの構築
           data_comment = %{
-            "id" => RandomString.stream(:alphanumeric) |> Enum.take(20) |> List.to_string,
+            "id" => RandomString.take(20, :alphanumeric),
             "user_id" => conn.assigns.me["_id"],
             "body" => conn.request.body["body"],
             "created_at" =>  Antikythera.Time.to_iso_timestamp(Antikythera.Time.now()),
