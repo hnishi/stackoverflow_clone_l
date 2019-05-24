@@ -1,7 +1,18 @@
 <template>
   <div>
-    <div class="page-title">{{ question.title }}</div>
-    <div class="body">{{ question.body }}</div>
+    <div class="page-title">
+      {{ question.title }}
+    </div>
+    <div class="body">
+      {{ question.body }}
+    </div>
+    <div
+      v-for="comment in question.comments"
+      :key="comment.id"
+       >
+      <comment :comment="comment" />
+      <hr>
+    </div>  
   </div>
 </template>
 

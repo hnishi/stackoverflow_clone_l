@@ -1,7 +1,8 @@
 <template>
   <div>
-    <question :question="question"/>
-    <comment :comment="comment" />
+    <div v-if="hasValidQuestion">
+      <question :question="question" />
+    </div>
   </div>
 </template>
 
@@ -23,7 +24,7 @@ export default {
   },
   computed: {
     hasValidQuestion() {
-      return !(Object.keys(this.question).length === 0) && this.question.id === this.$route.params.id;;
+      return !(Object.keys(this.question).length === 0) && this.question.id === this.$route.params.id;
     },
     question() {
       return this.$store.state.question;
