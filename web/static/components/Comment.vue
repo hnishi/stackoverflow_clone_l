@@ -1,6 +1,6 @@
 <template>
   <div>
-    !not_implemented!
+    コメント
   </div>
 </template>
 
