@@ -64,9 +64,52 @@ defmodule StackoverflowCloneL.Controller.Question.UpdateTest do
     }
   end
 
-  test "update/1 when Credential is invalid or missing. Or poster of this Question is different of login user" do
+  test "update/1 when Credential is invalid or missing." do
     :meck.expect(StackoverflowCloneL.Plug.FetchMe, :fetch, fn(conn, _) ->
       ErrorJson.json_by_error(conn, CredentialError.new()) end)
+
+    res = Req.put_json(@api_prefix, @body, @header)
+    assert res.status               == 401
+    assert Poison.decode!(res.body) == %{
+      "code"        => "401-00",
+      "description" => "The given credential is invalid.",
+      "error"       => "InvalidCredential",
+    }
+  end
+
+  test "update/1 when poster of this Question is different of login user." do
+    # :meck.expect(StackoverflowCloneL.Plug.FetchMe, :fetch, fn(conn, _) ->
+    #   Antikythera.Conn.assign(conn, :me, StackoverflowCloneL.TestData.UserData.dodai())
+    # end)
+    :meck.expect(StackoverflowCloneL.Plug.FetchMe, :fetch, fn(conn, _) ->
+      # IO.inspect(StackoverflowCloneL.TestData.UserData.dodai())
+      Antikythera.Conn.assign(conn, :me, StackoverflowCloneL.TestData.UserData.dodai())
+    end)
+
+    :meck.expect(G2gClient, :send, fn(_, _, req) ->
+      # IO.inspect req
+      case req do
+        %Dodai.RetrieveDedicatedDataEntityRequest{} = retrieve_req ->
+          # IO.inspect "RETRIEVE!!!"
+          # IO.inspect retrieve_req
+          #retrieve_reqについて必要に応じてassertする
+          assert retrieve_req.id == "question_id"
+          %Dodai.RetrieveDedicatedDataEntitySuccess{body: StackoverflowCloneL.TestData.QuestionData.dodai2()}
+        %Dodai.UpdateDedicatedDataEntityRequest{}   = update_req   ->
+          # IO.inspect "UPDATE!!!"
+          # IO.inspect update_req
+          # update_reqについての必要に応じてassertする
+          #IO.inspect update_req
+          assert update_req.body ==  %Dodai.UpdateDedicatedDataEntityRequestBody{
+            data: %{"$set" =>  %{body: "new body", title: "new title"}},
+            owner: nil,
+            sectionsOnInsert: nil,
+            upsert: nil,
+            version: nil
+          }
+          %Dodai.UpdateDedicatedDataEntitySuccess{body: StackoverflowCloneL.TestData.QuestionData.dodai2()}
+      end
+    end)
 
     res = Req.put_json(@api_prefix, @body, @header)
     assert res.status               == 401
