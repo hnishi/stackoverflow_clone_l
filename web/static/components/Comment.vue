@@ -1,19 +1,19 @@
 <template>
   <div>
-    <!-- !not_implemented! -->
+
     <div class="main-area">
       <div class="content-area">
         <div v-if="editing">
           <form
-            class="question-form"
-            @submit.prevent="updateComment"
+            class="comment-form"
+            @submit.prevent="updateQuestionComment"
           >
             <div class="form-group">
-              <label for="form-body"></label>
+              <label for="form-body">Body</label>
               <input
                 id="form-body"
                 v-model="editingBody"
-                :maxlength="authorMaxLength"
+                :maxlength="bodyMaxLength"
                 class="body-edit form-control"
                 type="text"
                 minlength="1"
@@ -84,14 +84,14 @@ export default {
   methods: {
     startEdit() {
       this.editing = true;
-      this.editingBody = this.question.body;
-      this.editingTitle = this.question.title;
+      this.editingBody = this.comment.body;
     },
     cancelEdit() {
       this.editing = false;
     },
-    updateQuestionComment(commentId, body) {
-      this.$store.dispatch('updateQuestionComment', { id: this.question.id, commentId, body });
+    updateQuestionComment() {
+      this.$store.dispatch('updateQuestionComment', { questionId: this.$route.params.id, id: this.comment.id, body: this.editingBody });
+      this.editing = false;
     }
   },
 };

@@ -115,9 +115,6 @@ export default {
       editingTitle: '',
     };
   },
-  mounted() {
-    this.updateQuestionComment();
-  },
   methods: {
     startEdit() {
       this.editing = true;
@@ -131,9 +128,6 @@ export default {
       this.$emit('update', { title: this.editingTitle, body: this.editingBody });
       this.editing = false;
     },
-    updateQuestionComment(commentId, body) {
-      this.$store.dispatch('updateQuestionComment', { id: this.question.id, commentId, body });
-    }
   },
 };
 </script>
