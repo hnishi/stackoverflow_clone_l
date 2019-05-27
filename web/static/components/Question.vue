@@ -34,4 +34,7 @@ export default {
 </script>
 
 <style scoped>
+.comment{
+  margin-left: 10px;
+}
 </style>
