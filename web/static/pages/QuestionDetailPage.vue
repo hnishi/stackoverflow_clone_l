@@ -22,7 +22,9 @@
       :key="answer.id"
       >
         <!-- {{ `print2: ${answer.id}` }} -->
-        <answer :answer="answer" />
+        <answer :answer="answer"
+          class="answer"
+        />
         <hr>
 
       <!-- <h5 class="answer">
@@ -84,6 +86,11 @@ export default {
       //console.warn('hoghoge')
       this.$store.dispatch('retrieveAnswers', { questionId: this.$route.params.id });
     },
+    // updateAnswer({ body }) {
+    //   console.warn(this.$route.params.id)
+    //   console.warn(this.$store.state)
+    //   this.$store.dispatch('updateAnswer', { questionId: this.$route.params.id, id: this.$store.state.answer.id, body})
+    // }
   },
 };
 </script>
