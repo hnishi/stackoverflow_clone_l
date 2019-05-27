@@ -1,6 +1,8 @@
 <template>
   <div>
-    未実装
+    <div class="body">
+      {{ answer.body }}
+    </div>  
   </div>
 </template>
 
@@ -12,8 +14,18 @@ export default {
   components: {
     Comment,
   },
+  props: {
+    answer: {
+      type: Object,
+      required: true,
+    },
+  },
 };
 </script>
 
 <style scoped>
+.body {
+  word-break: break-all;
+  white-space: pre-wrap;
+}
 </style>
