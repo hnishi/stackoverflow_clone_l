@@ -32,7 +32,7 @@ describe('Question', function () {
         comment,
       },
     });
-    //console.log(question.comments[0].body)
+    //console.log(wrapper.find('.comment').text())
     assert(wrapper.find('.comment').text().includes(comment.body));
   });
 });
