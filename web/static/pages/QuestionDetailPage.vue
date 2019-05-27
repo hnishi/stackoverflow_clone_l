@@ -12,10 +12,6 @@
         回答
       </div>
 
-      <!-- <answer
-        :answers="answers" 
-        class="answer"
-      /> --> 
       <!-- <p>{{ `print1: ${answers}` }}</p> -->
       <div
       v-for="answer in answers"
@@ -37,6 +33,34 @@
         </router-link>
       </div> -->
       </div>
+
+    <form
+      class="answer-form"
+      @submit.prevent="submit"
+    >
+      <div class="form-group">
+        <label for="form-nody">回答を投稿する</label>
+        <textarea
+          id="form-body"
+          v-model="body"
+          class="body-edit form-control"
+          minlength="1"
+          maxlength="3000"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <button
+          class="btn btn-primary mb-2"
+          type="submit"
+        >
+          投稿
+        </button>
+      </div>
+    </form>
+
+      <hr>
+    
       <router-link :to="{ name: 'QuestionListPage'}">
         質問の一覧に戻る
       </router-link>
@@ -57,6 +81,7 @@ export default {
   },
   data() {
     return {
+      body: '',
     };
   },
   computed: {
@@ -86,11 +111,14 @@ export default {
       //console.warn('hoghoge')
       this.$store.dispatch('retrieveAnswers', { questionId: this.$route.params.id });
     },
-    // updateAnswer({ body }) {
-    //   console.warn(this.$route.params.id)
-    //   console.warn(this.$store.state)
-    //   this.$store.dispatch('updateAnswer', { questionId: this.$route.params.id, id: this.$store.state.answer.id, body})
-    // }
+    // 回答の作成
+    submit() {
+      this.$store.dispatch('createAnswer', { questionId: this.$route.params.id, body: this.body })
+        .then(() => {
+          this.$router.push({ path: `/question/${this.$route.params.id}` });
+          this.body = '';
+        });
+    },
   },
 };
 </script>
@@ -99,9 +127,6 @@ export default {
 .question {
   margin-bottom: 20px;
 }
-/* .answer {
-  margin-bottom: 20px;
-} */
 .answer {
   text-overflow: ellipsis;
   overflow: hidden;
