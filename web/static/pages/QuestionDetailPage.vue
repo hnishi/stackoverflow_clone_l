@@ -9,10 +9,10 @@
     </div>
 
     <div class="page-title">
-      回答
+      {{ `${(answers).length}` }} 件の回答
     </div>
 
-    <!-- <p>{{ `print1: ${answers}` }}</p> -->
+    <!-- <p>{{ `print1: ${(answers).length}` }}</p> -->
     <div
       v-for="answer in answers"
       :key="answer.id"
@@ -22,17 +22,10 @@
         :answer="answer"
         class="answer"
       />
-      <hr>
+    </div>
 
-      <!-- <h5 class="answer">
-          {{ answer.body }}
-      </h5>
-      <div class="additional">
-        Posted at {{ answer.createdAt }}
-        by <router-link :to="{ name: 'UserDetailPage', params: { id: answer.userId }}">
-          {{ answer.userId }}
-        </router-link>
-      </div> -->
+    <div class="page-title">
+      回答する
     </div>
 
     <div v-if="hasLogin">
