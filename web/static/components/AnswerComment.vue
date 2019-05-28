@@ -45,7 +45,7 @@
               <router-link :to="{ name: 'UserDetailPage', params: { id: comment.userId }}">
                 {{ comment.userId }}
               </router-link>
-              <span v-if="!editing">
+              <span v-if="hasValidUser">
                 <button
                   type="button"
                   class="edit-button btn btn-link"
@@ -79,6 +79,12 @@ export default {
       editing: false,
       editingBody: '',
     };
+  },
+  computed: {
+    hasValidUser() {
+      // console.warn('DEBUG: ', this.editing);
+      return (this.editing === false) && this.comment.userId === this.$store.state.id;
+    },
   },
   methods: {
     startEdit() {
