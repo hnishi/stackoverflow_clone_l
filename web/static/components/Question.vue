@@ -29,8 +29,8 @@
             @submit.prevent="update"
           >
             <div class="form-group">
-              <label for="form-body">Body</label>
-              <input
+              <label for="form-body">本文</label>
+              <textarea
                 id="form-body"
                 v-model="editingQuestionBody"
                 :maxlength="bodyMaxLength"
@@ -38,7 +38,7 @@
                 type="text"
                 minlength="1"
                 required
-              >
+              />
             </div>
             <div class="form-group">
               <button
