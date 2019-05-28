@@ -61,9 +61,14 @@
           <div
             class="body"
           >
-            Body: {{ question.body }}
+            {{ question.body }}
           </div>
           <div class="additional">
+            Posted at {{ question.createdAt }}
+            by <router-link :to="{ name: 'UserDetailPage', params: { id: question.userId }}">
+              {{ question.userId }}
+            </router-link>
+
             <span v-if="!editing">
               <button
                 type="button"
