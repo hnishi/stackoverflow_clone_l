@@ -35,30 +35,36 @@
       </div> -->
     </div>
 
-    <form
-      class="answer-form"
-      @submit.prevent="submit"
-    >
-      <div class="form-group">
-        <label for="form-nody">回答を投稿する</label>
-        <textarea
-          id="form-body"
-          v-model="body"
-          class="body-edit form-control"
-          minlength="1"
-          maxlength="3000"
-          required
-        />
-      </div>
-      <div class="form-group">
-        <button
-          class="btn btn-primary mb-2"
-          type="submit"
-        >
-          投稿
-        </button>
-      </div>
-    </form>
+    <div v-if="hasLogin">
+      <form
+        class="answer-form"
+        @submit.prevent="submit"
+      >
+        <div class="form-group">
+          <label for="form-nody">回答を投稿する</label>
+          <textarea
+            id="form-body"
+            v-model="body"
+            class="body-edit form-control"
+            minlength="1"
+            maxlength="3000"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <button
+            class="btn btn-primary mb-2"
+            type="submit"
+          >
+            投稿
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <div v-else>
+      回答を投稿するにはログインしてください。
+    </div>
 
     <hr>
 
@@ -88,6 +94,10 @@ export default {
   computed: {
     hasValidQuestion() {
       return !(Object.keys(this.question).length === 0) && this.question.id === this.$route.params.id;
+    },
+    hasLogin() {
+      // console.warn('DEBUG: ', !(this.$store.state.id === ''));
+      return !(this.$store.state.id === '');
     },
     question() {
       return this.$store.state.question;
