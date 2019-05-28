@@ -61,7 +61,7 @@
           <div
             class="body"
           >
-            Body: {{ question.body }}
+            {{ question.body }}
           </div>
           <div class="additional">
 
