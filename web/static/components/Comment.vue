@@ -1,6 +1,5 @@
 <template>
   <div>
-
     <div class="main-area">
       <div class="content-area">
         <div v-if="editing">
@@ -42,9 +41,9 @@
             {{ comment.body }}
             <span class="additional">
               --
-              Posted at {{comment.createdAt}} by
+              Posted at {{ comment.createdAt }} by
               <router-link :to="{ name: 'UserDetailPage', params: { id: comment.userId }}">
-               {{ comment.userId }}
+                {{ comment.userId }}
               </router-link>
               <span v-if="!editing">
                 <button
@@ -92,13 +91,14 @@ export default {
     updateQuestionComment() {
       this.$store.dispatch('updateQuestionComment', { questionId: this.$route.params.id, id: this.comment.id, body: this.editingBody });
       this.editing = false;
-    }
+    },
   },
 };
 </script>
 
 <style scoped>
-.comment{
+.comment {
   margin-left: 10px;
 }
 </style>
+

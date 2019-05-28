@@ -33,7 +33,7 @@
               <input
                 id="form-body"
                 v-model="editingBody"
-                :maxlength="authorMaxLength"
+                :maxlength="bodyMaxLength"
                 class="body-edit form-control"
                 type="text"
                 minlength="1"
@@ -70,7 +70,7 @@
                 class="edit-button btn btn-link"
                 @click="startEdit"
               >
-                更新
+                質問の編集
               </button>
             </span>
           </div>
@@ -82,14 +82,13 @@
       v-for="comment in question.comments"
       :key="comment.id"
     >
-      <comment :comment="comment" 
-      class = "comment"
-      @update="updateQuestionComment" 
+      <comment
+        :comment="comment"
+        class="comment"
       />
 
       <hr>
     </div>
-
   </div>
 </template>
 
@@ -124,10 +123,10 @@ export default {
     cancelEdit() {
       this.editing = false;
     },
-    update() {
-      this.$emit('update', { title: this.editingTitle, body: this.editingBody });
-      this.editing = false;
-    },
+    // update() {
+    //   this.$emit('update', { title: this.editingTitle, body: this.editingBody });
+    //   this.editing = false;
+    // },
   },
 };
 </script>
