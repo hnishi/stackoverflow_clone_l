@@ -47,7 +47,7 @@
                 {{ comment.userId }}
               </router-link>
 
-              
+
               <span v-if="hasValidUser">
                 <button
                   type="button"
@@ -76,6 +76,13 @@ export default {
       required: true,
     },
   },
+  data() {
+    return {
+      newCommentbody: '',
+      editing: false,
+      editingBody: '',
+    };
+  },
   computed: {
     hasLogin() {
       // console.warn('DEBUG: ', !(this.$store.state.id === ''));
@@ -85,13 +92,6 @@ export default {
       // console.warn('DEBUG: ', this.editing);
       return (this.editing === false) && this.comment.userId === this.$store.state.id;
     },
-  },
-  data() {
-    return {
-      newCommentbody: '',
-      editing: false,
-      editingBody: '',
-    };
   },
   methods: {
     startEdit() {

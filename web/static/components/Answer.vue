@@ -114,9 +114,8 @@
     </div>
 
     <div v-else>
-      質問を投稿するにはログインしてください。
+      コメントを投稿するにはログインしてください。
     </div>
-
   </div>
 </template>
 
@@ -172,7 +171,8 @@ export default {
       // this.editingBody = '';
     },
     submitComment() {
-      this.$store.dispatch('createAnswerComment', { questionId: this.$route.params.id, answerId: this.answer.id, body: this.editingCommentBody });
+      this.$store.dispatch('createAnswerComment',
+        { questionId: this.$route.params.id, answerId: this.answer.id, body: this.editingCommentBody });
       this.editingCommentBody = '';
       this.editing = false;
     },

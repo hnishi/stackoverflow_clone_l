@@ -178,7 +178,7 @@ export default {
       this.editing = false;
     },
     submitComment() {
-      this.$store.dispatch('createQuestionComment', { questionId: this.$route.params.id, body: this.editingBody });
+      this.$store.dispatch('createQuestionComment', { questionId: this.$route.params.id, body: this.editingCommentBody });
       this.editingCommentBody = '';
       this.editing = false;
     },
@@ -197,7 +197,7 @@ export default {
 }
 .body {
   word-break: break-all;
-  white-space: pre-wrap;
+  white-space: pre-line;
 }
 .comment-list {
   margin-left: 10px;
