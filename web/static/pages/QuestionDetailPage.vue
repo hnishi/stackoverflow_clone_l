@@ -1,31 +1,32 @@
 <template>
   <div>
     <div v-if="hasValidQuestion">
-      <question 
-        :question="question" 
+      <question
+        :question="question"
         class="question"
         @update="updateQuestion"
       />
     </div>
 
-      <div class="page-title">
-        回答
-      </div>
+    <div class="page-title">
+      回答
+    </div>
 
-      <!-- <answer
-        :answers="answers" 
+    <!-- <answer
+        :answers="answers"
         class="answer"
-      /> --> 
-      <!-- <p>{{ `print1: ${answers}` }}</p> -->
-      <div
+      /> -->
+    <!-- <p>{{ `print1: ${answers}` }}</p> -->
+    <div
       v-for="answer in answers"
       :key="answer.id"
-      >
-        <!-- {{ `print2: ${answer.id}` }} -->
-        <answer :answer="answer"
-          class="answer"
-        />
-        <hr>
+    >
+      <!-- {{ `print2: ${answer.id}` }} -->
+      <answer
+        :answer="answer"
+        class="answer"
+      />
+      <hr>
 
       <!-- <h5 class="answer">
           {{ answer.body }}
@@ -36,10 +37,10 @@
           {{ answer.userId }}
         </router-link>
       </div> -->
-      </div>
-      <router-link :to="{ name: 'QuestionListPage'}">
-        質問の一覧に戻る
-      </router-link>
+    </div>
+    <router-link :to="{ name: 'QuestionListPage'}">
+      質問の一覧に戻る
+    </router-link>
   </div>
 </template>
 
@@ -66,8 +67,8 @@ export default {
     question() {
       return this.$store.state.question;
     },
-    answers(){
-      //return this.$store.state.answers
+    answers() {
+      // return this.$store.state.answers
       return this.sortBy(this.$store.state.answers, 'createdAt').reverse();
     },
   },
@@ -83,7 +84,7 @@ export default {
       this.$store.dispatch('updateQuestion', { id: this.$route.params.id, title, body });
     },
     retrieveAnswers() {
-      //console.warn('hoghoge')
+      // console.warn('hoghoge')
       this.$store.dispatch('retrieveAnswers', { questionId: this.$route.params.id });
     },
     // updateAnswer({ body }) {

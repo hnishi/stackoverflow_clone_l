@@ -82,14 +82,41 @@
       v-for="comment in question.comments"
       :key="comment.id"
     >
-      <comment :comment="comment" 
-      class = "comment"
-      @update="updateQuestionComment" 
+      <comment
+        :comment="comment"
+        class="comment"
       />
 
       <hr>
     </div>
-
+    <div>
+      <form
+        class="question-form"
+        @submit.prevent="submit_comment"
+      >
+        <div class="form-group">
+          <label for="form-nody">コメントを投稿する</label>
+          <textarea
+            id="form-body"
+            v-model="editingBody"
+            class="body-edit form-control"
+            minlength="1"
+            maxlength="50"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <button
+            class="btn btn-primary mb-2"
+            type="submit"
+            @click="commentSubmit"
+          >
+            投稿
+          </button>
+        </div>
+      </form>
+      <hr>
+    </div>
   </div>
 </template>
 
@@ -121,11 +148,16 @@ export default {
       this.editingBody = this.question.body;
       this.editingTitle = this.question.title;
     },
+    commentSubmit() {
+      this.editing = true;
+      // this.editingBody = '';
+    },
     cancelEdit() {
       this.editing = false;
     },
-    update() {
-      this.$emit('update', { title: this.editingTitle, body: this.editingBody });
+    submit_comment() {
+      this.$store.dispatch('createQuestionComment', { questionId: this.$route.params.id, body: this.editingBody });
+      this.editingBody = '';
       this.editing = false;
     },
   },

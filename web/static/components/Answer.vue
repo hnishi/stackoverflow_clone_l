@@ -1,6 +1,5 @@
 <template>
   <div>
-
     <div class="main-area">
       <div class="content-area">
         <div v-if="editing">
@@ -57,7 +56,6 @@
         </div>
       </div>
     </div>
-
   </div>
 </template>
 
@@ -90,11 +88,11 @@ export default {
     cancelEdit() {
       this.editing = false;
     },
-    update(){
+    update() {
       // console.warn(this.$route.params.id)
       // console.warn(this.answer.id)
       // console.warn(this.editingBody)
-      this.$store.dispatch('updateAnswer', { questionId: this.$route.params.id, id: this.answer.id, body: this.editingBody})
+      this.$store.dispatch('updateAnswer', { questionId: this.$route.params.id, id: this.answer.id, body: this.editingBody });
       this.editing = false;
     },
   },
