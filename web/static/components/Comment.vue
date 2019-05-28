@@ -22,4 +22,9 @@ export default {
 </script>
 
 <style scoped>
+.comment {
+  word-break: break-all;
+  white-space: pre-wrap;
+  margin-left: 10px;
+}
 </style>
