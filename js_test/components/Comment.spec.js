@@ -6,7 +6,7 @@ import '../TestHelper';
 import Comment from '@/components/Comment';
 import router from '@/router';
 
-describe('Question', function () {
+describe('Comment', function () {
   let store;
   const comment = {
     user_id: '5aa2100737000037001811c3',

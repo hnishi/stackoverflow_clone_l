@@ -33,7 +33,7 @@
               <input
                 id="form-body"
                 v-model="editingBody"
-                :maxlength="authorMaxLength"
+                :maxlength="bodyMaxLength"
                 class="body-edit form-control"
                 type="text"
                 minlength="1"
@@ -70,7 +70,7 @@
                 class="edit-button btn btn-link"
                 @click="startEdit"
               >
-                更新
+                質問の編集
               </button>
             </span>
           </div>

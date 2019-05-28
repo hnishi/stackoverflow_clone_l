@@ -22,10 +22,10 @@ defmodule StackoverflowCloneL.Controller.Answer.Update do
     #IO.inspect conn
     case UpdateRequestBody.new(conn.request.body) do
       {:error, _}      ->
+        #IO.inspect conn.request.body, label: "req body"
         ErrorJson.json_by_error(conn,BadRequestError.new())
       {:ok, validated} ->
-       # IO.inspect validated
-
+        # IO.inspect validated
         # answerのuser_idとログインユーザの_idが一致するか確認する
         with_answer(conn, fn answer ->
           id = conn.assigns.me["_id"]

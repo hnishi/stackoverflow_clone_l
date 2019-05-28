@@ -97,7 +97,8 @@ export default {
 </script>
 
 <style scoped>
-.comment{
+.comment {
   margin-left: 10px;
 }
 </style>
+
