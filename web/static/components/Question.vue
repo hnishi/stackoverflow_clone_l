@@ -64,7 +64,14 @@
             Body: {{ question.body }}
           </div>
           <div class="additional">
-            <span v-if="!editing">
+
+            Posted at {{ question.createdAt }}
+            by <router-link :to="{ name: 'UserDetailPage', params: { id: question.userId }}">
+              {{ question.userId }}
+            </router-link>
+
+            <!-- <span v-if="!editing"> -->
+            <span v-if="hasValidUser">
               <button
                 type="button"
                 class="edit-button btn btn-link"
@@ -142,6 +149,12 @@ export default {
       editingTitle: '',
     };
   },
+  computed: {
+    hasValidUser() {
+      // console.warn('DEBUG: ', this.editing);
+      return (this.editing === false) && this.question.userId === this.$store.state.id;
+    },
+  },
   methods: {
     startEdit() {
       this.editing = true;
@@ -158,6 +171,10 @@ export default {
     submitComment() {
       this.$store.dispatch('createQuestionComment', { questionId: this.$route.params.id, body: this.editingBody });
       this.editingBody = '';
+      this.editing = false;
+    },
+    update() {
+      this.$emit('update', { title: this.editingTitle, body: this.editingBody });
       this.editing = false;
     },
   },
