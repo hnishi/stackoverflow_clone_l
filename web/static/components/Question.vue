@@ -1,6 +1,11 @@
 <template>
   <div>
     <div v-if="editing">
+      <comment
+        :comment="comment"
+        class="comment"
+        @update="updateQuestionComment"
+      />
       <div class="form-group">
         <label for="form-title">タイトル</label>
         <input
@@ -160,6 +165,11 @@ export default {
       this.editingBody = '';
       this.editing = false;
     },
+    updateQuestionComment(questionId, id, body) {
+      console.log(questionId)
+      console.log(id)
+      this.$store.dispatch('updateQuestionComment', { questionId, id, body});
+    }
   },
 };
 </script>

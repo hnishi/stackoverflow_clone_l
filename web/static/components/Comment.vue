@@ -5,7 +5,7 @@
         <div v-if="editing">
           <form
             class="comment-form"
-            @submit.prevent="updateQuestionComment"
+            @submit.prevent="update"
           >
             <div class="form-group">
               <label for="form-body">Body</label>
@@ -88,8 +88,11 @@ export default {
     cancelEdit() {
       this.editing = false;
     },
-    updateQuestionComment() {
-      this.$store.dispatch('updateQuestionComment', { questionId: this.$route.params.id, id: this.comment.id, body: this.editingBody });
+    update() {
+      console.log(this.$route.params.id)
+      console.log(this.editingBody)
+      this.$emit('update', { questionId: this.$route.params.id, id: this.comment.id, body: this.editingBody });
+      //this.$store.dispatch('updateQuestionComment', { questionId: this.$route.params.id, id: this.comment.id, body: this.editingBody });
       this.editing = false;
     },
   },
