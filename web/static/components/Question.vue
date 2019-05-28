@@ -82,12 +82,13 @@
       v-for="comment in question.comments"
       :key="comment.id"
     >
-      <comment :comment="comment" />
+      <comment
+        :comment="comment"
+        class="comment"
+      />
+
       <hr>
     </div>
-
-    
-
   </div>
 </template>
 
@@ -122,10 +123,10 @@ export default {
     cancelEdit() {
       this.editing = false;
     },
-    update() {
-      this.$emit('update', { title: this.editingTitle, body: this.editingBody });
-      this.editing = false;
-    },
+    // update() {
+    //   this.$emit('update', { title: this.editingTitle, body: this.editingBody });
+    //   this.editing = false;
+    // },
   },
 };
 </script>
