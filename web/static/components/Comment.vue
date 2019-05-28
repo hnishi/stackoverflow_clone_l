@@ -112,5 +112,16 @@ export default {
 <style scoped>
 .comment{
   margin-left: 10px;
+  animation-name:fade-in3;
+  animation-duration:2s;
+  animation-timing-function: ease-out;
+  /* animation-delay:1s; */
+  animation-iteration-count:1;
+  animation-direction:normal;
+  animation-fill-mode: forwards;
+}
+@keyframes fade-in3 {
+  0% {opacity: 0; transform: translate3d(0,20px,0);}
+  100% {opacity: 1; transform: translate3d(0,0,0);}
 }
 </style>
