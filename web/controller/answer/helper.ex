@@ -25,7 +25,7 @@ defmodule StackoverflowCloneL.Controller.Answer.Helper do
 
   defmodule Params do
     defmodule Body do
-      use Croma.SubtypeOfString, pattern: ~r/\A.{1,3000}\z/u
+      use Croma.SubtypeOfString, pattern: ~r/\A.{1,3000}\z/s
     end
   end
 end

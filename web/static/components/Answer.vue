@@ -186,7 +186,7 @@ export default {
 }
 .body {
   word-break: break-all;
-  white-space: pre-wrap;
+  white-space: pre-line;
 }
 .comment-list {
   margin-left: 10px;
