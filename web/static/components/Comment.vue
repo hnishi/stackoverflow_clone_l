@@ -77,6 +77,10 @@ export default {
     },
   },
   computed: {
+    hasLogin() {
+      // console.warn('DEBUG: ', !(this.$store.state.id === ''));
+      return !(this.$store.state.id === '');
+    },
     hasValidUser() {
       // console.warn('DEBUG: ', this.editing);
       return (this.editing === false) && this.comment.userId === this.$store.state.id;

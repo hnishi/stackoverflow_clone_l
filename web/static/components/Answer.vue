@@ -11,7 +11,7 @@
               <label for="form-body">Body</label>
               <input
                 id="form-body"
-                v-model="editingBody"
+                v-model="editingAnswerBody"
                 :maxlength="bodyMaxLength"
                 class="body-edit form-control"
                 type="text"
@@ -83,7 +83,7 @@
 
       <hr>
     </div>
-    <div>
+    <div　v-if="hasLogin">
       <form
         class="question-form"
         @submit.prevent="submitComment"
@@ -92,7 +92,7 @@
           <label for="form-nody">コメントを投稿する</label>
           <textarea
             id="form-body"
-            v-model="editingBody"
+            v-model="editingCommentBody"
             class="body-edit form-control"
             minlength="1"
             maxlength="50"
@@ -111,6 +111,11 @@
       </form>
       <hr>
     </div>
+
+    <div v-else>
+      質問を投稿するにはログインしてください。
+    </div>
+
   </div>
 </template>
 
@@ -132,10 +137,15 @@ export default {
     return {
       newCommentbody: '',
       editing: false,
-      editingBody: '',
+      editingAnswerBody: '',
+      editingCommentBody: '',
     };
   },
   computed: {
+    hasLogin() {
+      // console.warn('DEBUG: ', !(this.$store.state.id === ''));
+      return !(this.$store.state.id === '');
+    },
     hasValidUser() {
       // console.warn('DEBUG: ', this.editing);
       return (this.editing === false) && this.answer.userId === this.$store.state.id;
@@ -144,7 +154,7 @@ export default {
   methods: {
     startEdit() {
       this.editing = true;
-      this.editingBody = this.answer.body;
+      this.editingAnswerBody = this.answer.body;
     },
     cancelEdit() {
       this.editing = false;
@@ -153,7 +163,7 @@ export default {
       // console.warn(this.$route.params.id)
       // console.warn(this.answer.id)
       // console.warn(this.editingBody)
-      this.$store.dispatch('updateAnswer', { questionId: this.$route.params.id, id: this.answer.id, body: this.editingBody });
+      this.$store.dispatch('updateAnswer', { questionId: this.$route.params.id, id: this.answer.id, body: this.editingAnswerBody });
       this.editing = false;
     },
     commentSubmit() {
@@ -161,8 +171,8 @@ export default {
       // this.editingBody = '';
     },
     submitComment() {
-      this.$store.dispatch('createAnswerComment', { questionId: this.$route.params.id, answerId: this.answer.id, body: this.editingBody });
-      this.editingBody = '';
+      this.$store.dispatch('createAnswerComment', { questionId: this.$route.params.id, answerId: this.answer.id, body: this.editingCommentBody });
+      this.editingCommentBody = '';
       this.editing = false;
     },
   },
