@@ -41,6 +41,8 @@
             class="body"
           >
             {{ answer.body }}
+            <!-- {{ answer.userId }}
+            {{ `${(this.editing === false) && this.answer.id === this.$route.params.id}` }} -->
           </div>
           <div class="additional">
             Posted at {{ answer.createdAt }}
@@ -48,7 +50,8 @@
               {{ answer.userId }}
             </router-link>
 
-            <span v-if="!editing">
+            <!-- <span v-if="!editing"> -->
+            <span v-if="hasValidUser">
               <button
                 type="button"
                 class="edit-button btn btn-link"
@@ -61,6 +64,14 @@
         </div>
       </div>
     </div>
+
+    <!-- <div v-if="hasValidUser">
+      test!!!
+      {{this.editing}}
+      {{this.answer.userId}}
+      {{this.$store.state.id}}
+    </div> -->
+
     <div
       v-for="comment in answer.comments"
       :key="comment.id"
@@ -123,6 +134,12 @@ export default {
       editing: false,
       editingBody: '',
     };
+  },
+  computed: {
+    hasValidUser() {
+      // console.warn('DEBUG: ', this.editing);
+      return (this.editing === false) && this.answer.userId === this.$store.state.id;
+    },
   },
   methods: {
     startEdit() {
