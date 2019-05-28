@@ -92,7 +92,7 @@
     <div>
       <form
         class="question-form"
-        @submit.prevent="submit_comment"
+        @submit.prevent="submitComment"
       >
         <div class="form-group">
           <label for="form-nody">コメントを投稿する</label>
@@ -155,7 +155,7 @@ export default {
     cancelEdit() {
       this.editing = false;
     },
-    submit_comment() {
+    submitComment() {
       this.$store.dispatch('createQuestionComment', { questionId: this.$route.params.id, body: this.editingBody });
       this.editingBody = '';
       this.editing = false;
