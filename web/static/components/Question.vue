@@ -1,11 +1,6 @@
 <template>
   <div>
     <div v-if="editing">
-      <comment
-        :comment="comment"
-        class="comment"
-        @update="updateQuestionComment"
-      />
       <div class="form-group">
         <label for="form-title">タイトル</label>
         <input
@@ -66,14 +61,9 @@
           <div
             class="body"
           >
-            {{ question.body }}
+            Body: {{ question.body }}
           </div>
           <div class="additional">
-            Posted at {{ question.createdAt }}
-            by <router-link :to="{ name: 'UserDetailPage', params: { id: question.userId }}">
-              {{ question.userId }}
-            </router-link>
-
             <span v-if="!editing">
               <button
                 type="button"
@@ -170,11 +160,6 @@ export default {
       this.editingBody = '';
       this.editing = false;
     },
-    updateQuestionComment(questionId, id, body) {
-      console.log(questionId)
-      console.log(id)
-      this.$store.dispatch('updateQuestionComment', { questionId, id, body});
-    }
   },
 };
 </script>

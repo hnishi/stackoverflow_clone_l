@@ -5,7 +5,7 @@
         <div v-if="editing">
           <form
             class="comment-form"
-            @submit.prevent="update"
+            @submit.prevent="updateQuestionComment"
           >
             <div class="form-group">
               <label for="form-body">Body</label>
@@ -39,6 +39,7 @@
         <div v-else>
           <div class="comment">
             {{ comment.body }}
+
             <span class="additional">
               --
               Posted at {{ comment.createdAt }} by
@@ -88,11 +89,8 @@ export default {
     cancelEdit() {
       this.editing = false;
     },
-    update() {
-      console.log(this.$route.params.id)
-      console.log(this.editingBody)
-      this.$emit('update', { questionId: this.$route.params.id, id: this.comment.id, body: this.editingBody });
-      //this.$store.dispatch('updateQuestionComment', { questionId: this.$route.params.id, id: this.comment.id, body: this.editingBody });
+    updateQuestionComment() {
+      this.$store.dispatch('updateQuestionComment', { questionId: this.$route.params.id, id: this.comment.id, body: this.editingBody });
       this.editing = false;
     },
   },
@@ -100,7 +98,7 @@ export default {
 </script>
 
 <style scoped>
-.comment {
+.comment{
   margin-left: 10px;
 }
 </style>
