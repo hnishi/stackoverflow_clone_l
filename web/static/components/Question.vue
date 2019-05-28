@@ -32,7 +32,7 @@
               <label for="form-body">Body</label>
               <input
                 id="form-body"
-                v-model="editingBody"
+                v-model="editingQuestionBody"
                 :maxlength="bodyMaxLength"
                 class="body-edit form-control"
                 type="text"
@@ -95,7 +95,7 @@
 
       <hr>
     </div>
-    <div>
+    <div v-if="hasLogin">
       <form
         class="question-form"
         @submit.prevent="submitComment"
@@ -104,7 +104,7 @@
           <label for="form-nody">コメントを投稿する</label>
           <textarea
             id="form-body"
-            v-model="editingBody"
+            v-model="editingCommentBody"
             class="body-edit form-control"
             minlength="1"
             maxlength="50"
@@ -122,6 +122,10 @@
         </div>
       </form>
       <hr>
+    </div>
+
+    <div v-else>
+      コメントを投稿するにはログインしてください。
     </div>
   </div>
 </template>
@@ -144,11 +148,16 @@ export default {
     return {
       newCommentbody: '',
       editing: false,
-      editingBody: '',
+      editingQuestionBody: '',
+      editingCommentBody: '',
       editingTitle: '',
     };
   },
   computed: {
+    hasLogin() {
+      // console.warn('DEBUG: ', !(this.$store.state.id === ''));
+      return !(this.$store.state.id === '');
+    },
     hasValidUser() {
       // console.warn('DEBUG: ', this.editing);
       return (this.editing === false) && this.question.userId === this.$store.state.id;
@@ -157,7 +166,7 @@ export default {
   methods: {
     startEdit() {
       this.editing = true;
-      this.editingBody = this.question.body;
+      this.editingQuestionBody = this.question.body;
       this.editingTitle = this.question.title;
     },
     commentSubmit() {
@@ -169,11 +178,11 @@ export default {
     },
     submitComment() {
       this.$store.dispatch('createQuestionComment', { questionId: this.$route.params.id, body: this.editingBody });
-      this.editingBody = '';
+      this.editingCommentBody = '';
       this.editing = false;
     },
     update() {
-      this.$emit('update', { title: this.editingTitle, body: this.editingBody });
+      this.$emit('update', { title: this.editingTitle, body: this.editingQuestionBody });
       this.editing = false;
     },
   },
