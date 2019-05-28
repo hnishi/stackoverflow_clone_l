@@ -39,6 +39,7 @@
         <div v-else>
           <div class="comment">
             {{ comment.body }}
+
             <span class="additional">
               --
               Posted at {{ comment.createdAt }} by
@@ -97,7 +98,7 @@ export default {
 </script>
 
 <style scoped>
-.comment {
+.comment{
   margin-left: 10px;
 }
 </style>

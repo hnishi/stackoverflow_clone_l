@@ -115,7 +115,7 @@
 </template>
 
 <script>
-import Comment from '@/components/Comment';
+import Comment from '@/components/AnswerComment';
 
 export default {
   name: 'Answer',

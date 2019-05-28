@@ -64,6 +64,7 @@
             {{ question.body }}
           </div>
           <div class="additional">
+
             Posted at {{ question.createdAt }}
             by <router-link :to="{ name: 'UserDetailPage', params: { id: question.userId }}">
               {{ question.userId }}
