@@ -83,6 +83,7 @@
         </div>
       </div>
     </div>
+    <hr>
 
     <div
       v-for="comment in question.comments"
