@@ -2,6 +2,7 @@ import assert from 'power-assert';
 import Vuex from 'vuex';
 import { shallowMount } from '@vue/test-utils';
 import '../TestHelper';
+// import Question from '@/components/Question';
 import Comment from '@/components/Comment';
 import router from '@/router';
 
