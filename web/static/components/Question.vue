@@ -82,7 +82,11 @@
       v-for="comment in question.comments"
       :key="comment.id"
     >
-      <comment :comment="comment" />
+      <comment :comment="comment" 
+      class = "comment"
+      @update="updateQuestionComment" 
+      />
+
       <hr>
     </div>
 
