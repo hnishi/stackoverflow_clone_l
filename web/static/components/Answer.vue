@@ -83,7 +83,7 @@
 
       <hr>
     </div>
-    <div　v-if="hasLogin">
+    <div v-if="hasLogin">
       <form
         class="question-form"
         @submit.prevent="submitComment"
