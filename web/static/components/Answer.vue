@@ -74,59 +74,59 @@
     </div> -->
 
     <div class="hidden_box">
-      <label v-bind:for="answer_id">コメントを表示</label>
+      <label :for="answer_id">コメントを表示</label>
       <input
-        v-bind:id="answer_id"
+        :id="answer_id"
         type="checkbox"
       >
       <div class="hidden_show">
-    <div
-      v-for="comment in answer.comments"
-      :key="comment.id"
-    >
-      <comment
-        :comment="comment"
-        class="comment"
-      />
-
-      <hr>
-    </div>
-    <div v-if="hasLogin">
-      <form
-        class="question-form"
-        @submit.prevent="submitComment"
-      >
-        <div class="form-group">
-          <!-- <label for="form-nody">コメントを投稿する</label> -->
-          <h5>コメントを投稿する</h5>
-          <textarea
-            id="form-body"
-            v-model="editingCommentBody"
-            class="body-edit form-control"
-            minlength="1"
-            maxlength="50"
-            required
+        <div
+          v-for="comment in answer.comments"
+          :key="comment.id"
+        >
+          <comment
+            :comment="comment"
+            class="comment"
           />
-        </div>
-        <div class="form-group">
-          <button
-            class="btn btn-primary mb-2"
-            type="submit"
-            @click="commentSubmit"
-          >
-            投稿
-          </button>
-        </div>
-      </form>
-      <hr>
-    </div>
 
-    <div v-else>
-      コメントを投稿するにはログインしてください。
+          <hr>
+        </div>
+        <div v-if="hasLogin">
+          <form
+            class="question-form"
+            @submit.prevent="submitComment"
+          >
+            <div class="form-group">
+              <!-- <label for="form-nody">コメントを投稿する</label> -->
+              <h5>コメントを投稿する</h5>
+              <textarea
+                id="form-body"
+                v-model="editingCommentBody"
+                class="body-edit form-control"
+                minlength="1"
+                maxlength="50"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <button
+                class="btn btn-primary mb-2"
+                type="submit"
+                @click="commentSubmit"
+              >
+                投稿
+              </button>
+            </div>
+          </form>
+          <hr>
+        </div>
+
+        <div v-else>
+          コメントを投稿するにはログインしてください。
+        </div>
+      </div>
     </div>
   </div>
-   </div>
-    </div>
 </template>
 
 <script>
