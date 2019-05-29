@@ -9,11 +9,11 @@
         @update="updateQuestion"
       />
     </div>
-
+    
     <div class="page-title">
       {{ `${(answers).length}` }} 件の回答
     </div>
-
+ <hr>
     <!-- <p>{{ `print1: ${(answers).length}` }}</p> -->
     <div
       v-for="answer in answers"
@@ -67,24 +67,6 @@
       質問の一覧に戻る
     </router-link>
 
-    <div>
-      <!-- <p>{{ `print1: ${question.title}` }}</p> -->
-      <button
-        type="vote"
-        @click="vote_like"
-      >
-        好き
-      </button>
-            
-      <button
-        type="vote"
-        @click="vote_dislike"
-      >
-        嫌い
-      </button>
-      <!-- <p>{{ `like: ${Object.keys(question.likeVoterIds).length}` }}</p> -->
-      好き数: {{ num_like }} , 嫌い数: {{ num_dislike }}
-    </div>
   </div>
 </template>
 
@@ -150,29 +132,29 @@ export default {
           this.body = '';
         });
     },
-    vote_like() {
-      console.dir(this.$store.state.question);
-      console.log((this.$store.state.question.likeVoterIds).length);
-      // this.num_like = (this.$store.state.question.likeVoterIds).length;
-      this.$store.dispatch('addVote', { questionId: this.$route.params.id, voteType: "like_vote" })
-        .then(() => {
-          this.num_like = (this.$store.state.question.likeVoterIds).length;
-        })
-        .then(() => {
-          this.retrieveQuestion();
-        });
-      return (this.$store.state.question.likeVoterIds).length;
-    },
-    vote_dislike() {
-        this.$store.dispatch('addVote', { questionId: this.$route.params.id, voteType: "dislike_vote" })
-        .then(() => {
-          this.num_dislike = (this.$store.state.question.dislikeVoterIds).length;
-        })
-        .then(() => {
-          this.retrieveQuestion();
-        });
-      return (this.$store.state.question.dislikeVoterIds).length;
-    },
+    // vote_like() {
+    //   console.dir(this.$store.state.question);
+    //   console.log((this.$store.state.question.likeVoterIds).length);
+    //   // this.num_like = (this.$store.state.question.likeVoterIds).length;
+    //   this.$store.dispatch('addVote', { questionId: this.$route.params.id, voteType: "like_vote" })
+    //     .then(() => {
+    //       this.num_like = (this.$store.state.question.likeVoterIds).length;
+    //     })
+    //     .then(() => {
+    //       this.retrieveQuestion();
+    //     });
+    //   return (this.$store.state.question.likeVoterIds).length;
+    // },
+    // vote_dislike() {
+    //     this.$store.dispatch('addVote', { questionId: this.$route.params.id, voteType: "dislike_vote" })
+    //     .then(() => {
+    //       this.num_dislike = (this.$store.state.question.dislikeVoterIds).length;
+    //     })
+    //     .then(() => {
+    //       this.retrieveQuestion();
+    //     });
+    //   return (this.$store.state.question.dislikeVoterIds).length;
+    // },
   },
 };
 </script>

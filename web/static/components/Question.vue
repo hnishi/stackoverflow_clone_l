@@ -84,50 +84,78 @@
       </div>
     </div>
     <hr>
-
-    <div
-      v-for="comment in question.comments"
-      :key="comment.id"
-    >
-      <comment
-        :comment="comment"
-        class="comment"
-      />
-
-      <hr>
-    </div>
-    <div v-if="hasLogin">
-      <form
-        class="question-form"
-        @submit.prevent="submitComment"
+    <div>
+      <!-- <p>{{ `print1: ${question.title}` }}</p> -->
+      <button
+        class="good_btn"
+        type="vote"
+        @click="vote_like"
       >
-        <div class="form-group">
-          <label for="form-nody">コメントを投稿する</label>
-          <textarea
-            id="form-body"
-            v-model="editingCommentBody"
-            class="body-edit form-control"
-            minlength="1"
-            maxlength="50"
-            required
+      </button>
+      {{ num_like }} 
+      <button
+        class="bad_btn"
+        type="vote"
+        @click="vote_dislike"
+      >
+      </button>
+      <!-- <p>{{ `like: ${Object.keys(question.likeVoterIds).length}` }}</p> -->
+      {{ num_dislike }}
+    </div>
+    <div class="hidden_box">
+      <label for="label1">コメントを表示</label>
+      <input
+        id="label1"
+        type="checkbox"
+      >
+      <div class="hidden_show">
+        <div
+          v-for="comment in question.comments"
+          :key="comment.id"
+        >
+          <comment
+            :comment="comment"
+            class="comment"
           />
+          <hr>
         </div>
-        <div class="form-group">
-          <button
-            class="btn btn-primary mb-2"
-            type="submit"
-            @click="commentSubmit"
-          >
-            投稿
-          </button>
-        </div>
-      </form>
-      <hr>
-    </div>
 
-    <div v-else>
-      コメントを投稿するにはログインしてください。
+
+        <div v-if="hasLogin">
+          <form
+            class="question-form"
+            @submit.prevent="submitComment"
+          >
+            <div class="form-group">
+              <h5>コメントを投稿する</h5>
+              <textarea
+                id="form-body"
+                v-model="editingCommentBody"
+                class="body-edit form-control"
+                minlength="1"
+                maxlength="50"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <button
+                class="btn btn-primary mb-2"
+                type="submit"
+                @click="commentSubmit"
+              >
+                投稿
+              </button>
+            </div>
+          </form>
+         
+        </div>
+
+        <div v-else>
+          コメントを投稿するにはログインしてください。
+        </div>
+      </div>
     </div>
+     <hr>
   </div>
 </template>
 
@@ -152,6 +180,8 @@ export default {
       editingQuestionBody: '',
       editingCommentBody: '',
       editingTitle: '',
+      num_like: 0,
+      num_dislike: 0,
     };
   },
   computed: {
@@ -186,6 +216,36 @@ export default {
       this.$emit('update', { title: this.editingTitle, body: this.editingQuestionBody });
       this.editing = false;
     },
+    retrieveQuestion() {
+      this.$store.dispatch('retrieveQuestion', { id: this.$route.params.id })
+      .then(() =>{
+        this.num_like = (this.$store.state.question.likeVoterIds).length;
+        this.num_dislike = (this.$store.state.question.dislikeVoterIds).length;
+      });
+    },
+    vote_like() {
+      // console.dir(this.$store.state.question);
+      // console.log((this.$store.state.question.likeVoterIds).length);
+      // this.num_like = (this.$store.state.question.likeVoterIds).length;
+      this.$store.dispatch('addVote', { questionId: this.$route.params.id, voteType: "like_vote" })
+        .then(() => {
+          this.num_like = (this.$store.state.question.likeVoterIds).length;
+        })
+        .then(() => {
+          this.retrieveQuestion();
+        });
+      return (this.$store.state.question.likeVoterIds).length;
+    },
+    vote_dislike() {
+        this.$store.dispatch('addVote', { questionId: this.$route.params.id, voteType: "dislike_vote" })
+        .then(() => {
+          this.num_dislike = (this.$store.state.question.dislikeVoterIds).length;
+        })
+        .then(() => {
+          this.retrieveQuestion();
+        });
+      return (this.$store.state.question.dislikeVoterIds).length;
+    },
   },
 };
 </script>
@@ -201,5 +261,74 @@ export default {
 }
 .comment-list {
   margin-left: 10px;
+}
+/*全体*/
+.hidden_box {
+    margin: 2em 0;/*前後の余白*/
+    padding: 0;
+    position: relative;
+  display: inline-block;
+  /* padding: 0.25em 0.5em; */
+  text-decoration: none;
+  /* color: #FFF; */
+  /* background: #fd9535;背景色 */
+  /* border-bottom: solid 2px #d27d00;少し濃い目の色に */
+  border-radius: 4px;/*角の丸み*/
+  /* box-shadow: inset 0 2px 0 rgba(255,255,255,0.2), 0 2px 2px rgba(0, 0, 0, 0.19); */
+  font-weight: bold;
+  font-size: small;
+}
+
+/*ボタン装飾*/
+.hidden_box label {
+    padding: 5px;
+    border-radius: 4px;/*角の丸み*/
+    color: #FFF;
+    background: #fd9535;
+    border-bottom: solid 2px #d27d00;
+    box-shadow: inset 0 2px 0 rgba(255,255,255,0.2), 0 2px 2px rgba(0, 0, 0, 0.19);
+    font-weight: bold;
+    /* border: solid 2px black; */
+    cursor :pointer;
+    text-align: center;
+    margin-left: 50px;
+}
+
+/*ボタンホバー時*/
+.hidden_box label:hover {
+    background: #efefef;
+}
+
+/*チェックは見えなくする*/
+.hidden_box input {
+    display: none;
+}
+
+/*中身を非表示にしておく*/
+.hidden_box .hidden_show {
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: 0.8s;
+}
+
+/*クリックで中身表示*/
+.hidden_box input:checked ~ .hidden_show {
+    padding: 10px 0;
+    height: auto;
+    opacity: 1;
+}
+.good_btn{
+    border: 0px;
+    width:50px;
+    height:30px;
+    background: url(../imgs/good.png) left top no-repeat;
+}
+.bad_btn{
+    border: 0px;
+    width:50px;
+    height:30px;
+    background: url(../imgs/bad.png) left top no-repeat;
 }
 </style>
