@@ -241,6 +241,12 @@ export const actions = {
     //   commit('updateQuestion', data);
     // });
   },
+  retrieveQuestions2({ commit }, { userId, limit, skip } = {}) {
+    return HttpClient.get('/v1/question', { params: { userId, limit, skip } })
+      .then(({ data }) => {
+        commit('updateQuestions', data);
+      });
+  },
 };
 
 export const store = new Vuex.Store({
