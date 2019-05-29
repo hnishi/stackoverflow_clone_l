@@ -110,11 +110,7 @@ export default {
   },
   methods: {
     retrieveQuestion() {
-      this.$store.dispatch('retrieveQuestion', { id: this.$route.params.id })
-        .then(() => {
-          this.num_like = (this.$store.state.question.likeVoterIds).length;
-          this.num_dislike = (this.$store.state.question.dislikeVoterIds).length;
-        });
+      this.$store.dispatch('retrieveQuestion', { id: this.$route.params.id });
     },
     updateQuestion({ title, body }) {
       this.$store.dispatch('updateQuestion', { id: this.$route.params.id, title, body });
@@ -131,29 +127,6 @@ export default {
           this.body = '';
         });
     },
-    // vote_like() {
-    //   console.dir(this.$store.state.question);
-    //   console.log((this.$store.state.question.likeVoterIds).length);
-    //   // this.num_like = (this.$store.state.question.likeVoterIds).length;
-    //   this.$store.dispatch('addVote', { questionId: this.$route.params.id, voteType: "like_vote" })
-    //     .then(() => {
-    //       this.num_like = (this.$store.state.question.likeVoterIds).length;
-    //     })
-    //     .then(() => {
-    //       this.retrieveQuestion();
-    //     });
-    //   return (this.$store.state.question.likeVoterIds).length;
-    // },
-    // vote_dislike() {
-    //     this.$store.dispatch('addVote', { questionId: this.$route.params.id, voteType: "dislike_vote" })
-    //     .then(() => {
-    //       this.num_dislike = (this.$store.state.question.dislikeVoterIds).length;
-    //     })
-    //     .then(() => {
-    //       this.retrieveQuestion();
-    //     });
-    //   return (this.$store.state.question.dislikeVoterIds).length;
-    // },
   },
 };
 </script>
