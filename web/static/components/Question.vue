@@ -83,6 +83,7 @@
         </div>
       </div>
     </div>
+    <hr>
 
     <div class="hidden_box">
       <label for="label1">コメントを表示</label>
