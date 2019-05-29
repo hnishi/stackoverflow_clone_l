@@ -92,7 +92,7 @@
         @click="vote_like"
       >
       </button>
-      {{ num_like }} 
+      {{ num_like }}     
       <button
         class="bad_btn"
         type="vote"
@@ -326,6 +326,7 @@ export default {
     background: url(../imgs/good.png) left top no-repeat;
 }
 .bad_btn{
+    margin-left: 15px;
     border: 0px;
     width:50px;
     height:30px;
