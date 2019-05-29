@@ -16,7 +16,7 @@
     </div>
     <div v-else>
       <div class="page-title">
-        {{ question.title }}
+        <h1>{{ question.title }}</h1>
       </div>
     </div>
     <hr>
@@ -326,6 +326,7 @@ export default {
     background: url(../imgs/good.png) left top no-repeat;
 }
 .bad_btn{
+    margin-left: 15px;
     border: 0px;
     width:50px;
     height:30px;
