@@ -192,7 +192,7 @@ export default {
     },
   },
   mounted() {
-    this.retrieveQuestion();
+    // this.retrieveQuestion();
   },
   methods: {
     startEdit() {

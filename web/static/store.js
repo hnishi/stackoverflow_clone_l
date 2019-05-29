@@ -231,7 +231,7 @@ export const actions = {
         commit('setBook', data);
       });
   },
-  addVote({ commit, state: { key } }, { questionId, voteType }) {
+  addVote({ state: { key } }, { questionId, voteType }) {
     return HttpClient.post(
       `/v1/question/${questionId}/vote/${voteType}`,
       {},
