@@ -84,7 +84,24 @@
       </div>
     </div>
     <hr>
-
+    <div>
+      <!-- <p>{{ `print1: ${question.title}` }}</p> -->
+      <button
+        class="good_btn"
+        type="vote"
+        @click="vote_like"
+      >
+      </button>
+      {{ num_like }} 
+      <button
+        class="bad_btn"
+        type="vote"
+        @click="vote_dislike"
+      >
+      </button>
+      <!-- <p>{{ `like: ${Object.keys(question.likeVoterIds).length}` }}</p> -->
+      {{ num_dislike }}
+    </div>
     <div class="hidden_box">
       <label for="label1">コメントを表示</label>
       <input
@@ -163,6 +180,8 @@ export default {
       editingQuestionBody: '',
       editingCommentBody: '',
       editingTitle: '',
+      num_like: 0,
+      num_dislike: 0,
     };
   },
   computed: {
@@ -196,6 +215,36 @@ export default {
     update() {
       this.$emit('update', { title: this.editingTitle, body: this.editingQuestionBody });
       this.editing = false;
+    },
+    retrieveQuestion() {
+      this.$store.dispatch('retrieveQuestion', { id: this.$route.params.id })
+      .then(() =>{
+        this.num_like = (this.$store.state.question.likeVoterIds).length;
+        this.num_dislike = (this.$store.state.question.dislikeVoterIds).length;
+      });
+    },
+    vote_like() {
+      // console.dir(this.$store.state.question);
+      // console.log((this.$store.state.question.likeVoterIds).length);
+      // this.num_like = (this.$store.state.question.likeVoterIds).length;
+      this.$store.dispatch('addVote', { questionId: this.$route.params.id, voteType: "like_vote" })
+        .then(() => {
+          this.num_like = (this.$store.state.question.likeVoterIds).length;
+        })
+        .then(() => {
+          this.retrieveQuestion();
+        });
+      return (this.$store.state.question.likeVoterIds).length;
+    },
+    vote_dislike() {
+        this.$store.dispatch('addVote', { questionId: this.$route.params.id, voteType: "dislike_vote" })
+        .then(() => {
+          this.num_dislike = (this.$store.state.question.dislikeVoterIds).length;
+        })
+        .then(() => {
+          this.retrieveQuestion();
+        });
+      return (this.$store.state.question.dislikeVoterIds).length;
     },
   },
 };
@@ -269,5 +318,17 @@ export default {
     padding: 10px 0;
     height: auto;
     opacity: 1;
+}
+.good_btn{
+    border: 0px;
+    width:50px;
+    height:30px;
+    background: url(../imgs/good.png) left top no-repeat;
+}
+.bad_btn{
+    border: 0px;
+    width:50px;
+    height:30px;
+    background: url(../imgs/bad.png) left top no-repeat;
 }
 </style>
