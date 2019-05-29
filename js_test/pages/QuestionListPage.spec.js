@@ -3,7 +3,6 @@ describe('QuestionListPage', function () {
 });
 
 
-
 // import assert from 'power-assert';
 // import Vuex from 'vuex';
 // import sinon from 'sinon';

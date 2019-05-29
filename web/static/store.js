@@ -60,6 +60,9 @@ export const mutations = {
   setBooks(state, books) {
     state.books = books;
   },
+  updateVote(state, vote) {
+    state.vote = vote;
+  },
 };
 
 export const actions = {
@@ -231,15 +234,13 @@ export const actions = {
         commit('setBook', data);
       });
   },
-  addVote({ state: { key } }, { questionId, voteType }) {
+  addVote({ dispatch, state: { key } }, { questionId, voteType }) {
     return HttpClient.post(
       `/v1/question/${questionId}/vote/${voteType}`,
       {},
       { headers: { Authorization: key } },
-    );
-    // .then(({ data }) => {
-    //   commit('updateQuestion', data);
-    // });
+    )
+      .then(() => dispatch('retrieveQuestion', { id: questionId }));
   },
   retrieveQuestions2({ commit }, { userId, limit, skip } = {}) {
     return HttpClient.get('/v1/question', { params: { userId, limit, skip } })

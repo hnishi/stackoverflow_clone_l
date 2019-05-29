@@ -91,14 +91,13 @@
         type="vote"
         @click="vote_like"
       />
-      {{ num_like }}
+      {{ question.likeVoterIds.length }}
       <button
         class="bad_btn"
         type="vote"
         @click="vote_dislike"
       />
-      <!-- <p>{{ `like: ${Object.keys(question.likeVoterIds).length}` }}</p> -->
-      {{ num_dislike }}
+      {{ question.dislikeVoterIds.length }}
     </div>
     <div class="hidden_box">
       <label for="label1">コメントを表示</label>
@@ -177,8 +176,6 @@ export default {
       editingQuestionBody: '',
       editingCommentBody: '',
       editingTitle: '',
-      num_like: 0,
-      num_dislike: 0,
     };
   },
   computed: {
@@ -190,9 +187,6 @@ export default {
       // console.warn('DEBUG: ', this.editing);
       return (this.editing === false) && this.question.userId === this.$store.state.id;
     },
-  },
-  mounted() {
-    // this.retrieveQuestion();
   },
   methods: {
     startEdit() {
@@ -216,35 +210,11 @@ export default {
       this.$emit('update', { title: this.editingTitle, body: this.editingQuestionBody });
       this.editing = false;
     },
-    retrieveQuestion() {
-      this.$store.dispatch('retrieveQuestion', { id: this.$route.params.id })
-        .then(() => {
-          this.num_like = (this.$store.state.question.likeVoterIds).length;
-          this.num_dislike = (this.$store.state.question.dislikeVoterIds).length;
-        });
-    },
     vote_like() {
-      // console.dir(this.$store.state.question);
-      // console.log((this.$store.state.question.likeVoterIds).length);
-      // this.num_like = (this.$store.state.question.likeVoterIds).length;
-      this.$store.dispatch('addVote', { questionId: this.$route.params.id, voteType: 'like_vote' })
-        .then(() => {
-          this.num_like = (this.$store.state.question.likeVoterIds).length;
-        })
-        .then(() => {
-          this.retrieveQuestion();
-        });
-      return (this.$store.state.question.likeVoterIds).length;
+      this.$store.dispatch('addVote', { questionId: this.$route.params.id, voteType: 'like_vote' });
     },
     vote_dislike() {
-      this.$store.dispatch('addVote', { questionId: this.$route.params.id, voteType: 'dislike_vote' })
-        .then(() => {
-          this.num_dislike = (this.$store.state.question.dislikeVoterIds).length;
-        })
-        .then(() => {
-          this.retrieveQuestion();
-        });
-      return (this.$store.state.question.dislikeVoterIds).length;
+      this.$store.dispatch('addVote', { questionId: this.$route.params.id, voteType: 'dislike_vote' });
     },
   },
 };
