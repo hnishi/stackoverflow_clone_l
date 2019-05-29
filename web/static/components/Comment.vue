@@ -39,15 +39,11 @@
         <div v-else>
           <div class="comment">
             {{ comment.body }}
-
             <span class="additional">
-              --
-              Posted at {{ comment.createdAt }} by
+              -- Posted at {{ comment.createdAt }} by
               <router-link :to="{ name: 'UserDetailPage', params: { id: comment.userId }}">
                 {{ comment.userId }}
               </router-link>
-
-
               <span v-if="hasValidUser">
                 <button
                   type="button"

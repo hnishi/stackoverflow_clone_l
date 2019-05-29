@@ -4,7 +4,7 @@
       class="navbar-brand"
       to="/"
     >
-      StackoverFlowClone
+      <h1>StackoverFlowClone</h1>
     </router-link>
     <div class="form-inline my-2 my-lg-0">
       <div class="navbar-text">
@@ -50,6 +50,6 @@ export default {
 }
 .navbar-brand::before {
   vertical-align: middle;
-  content: url("../imgs/icon.png");
+  /* content: url("../imgs/icon.png"); */
 }
 </style>
