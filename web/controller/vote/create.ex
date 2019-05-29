@@ -20,10 +20,14 @@ defmodule StackoverflowCloneL.Controller.Vote.Create do
       list_db_req = question["data"][type_vote_req]
       list_db_opp = question["data"][type_vote_opp]
       case Enum.any?(list_db_req , fn(x) -> x==conn.assigns.me["_id"] end) do
-      true -> ErrorJson.json_by_error(conn,BadRequestError.new())
+      true  -> ErrorJson.json_by_error(conn,BadRequestError.new())
       false ->
-        list_db_opp = if Enum.any?(list_db_opp , fn(x) -> x==conn.assigns.me["_id"] end),
-          do: List.delete(list_db_opp, conn.assigns.me["_id"])
+        # list_db_opp = if Enum.any?(list_db_opp , fn(x) -> x==conn.assigns.me["_id"] end),
+        list_db_opp = case Enum.any?(list_db_opp , fn(x) -> x==conn.assigns.me["_id"] end) do
+          true  -> List.delete(list_db_opp, conn.assigns.me["_id"])
+          false -> list_db_opp
+          end
+          # do: List.delete(list_db_opp, conn.assigns.me["_id"])
         list_db_req = list_db_req ++ [conn.assigns.me["_id"]]
 
       # 1. Requestの構築

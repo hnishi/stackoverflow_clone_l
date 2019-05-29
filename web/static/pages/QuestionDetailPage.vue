@@ -9,11 +9,11 @@
         @update="updateQuestion"
       />
     </div>
-    
+
     <div class="page-title">
       {{ `${(answers).length}` }} 件の回答
     </div>
- <hr>
+    <hr>
     <!-- <p>{{ `print1: ${(answers).length}` }}</p> -->
     <div
       v-for="answer in answers"
@@ -66,7 +66,6 @@
     <router-link :to="{ name: 'QuestionListPage'}">
       質問の一覧に戻る
     </router-link>
-
   </div>
 </template>
 
@@ -85,8 +84,8 @@ export default {
   data() {
     return {
       body: '',
-      num_like: 0,
-      num_dislike: 0,
+      // num_like: 0,
+      // num_dislike: 0,
     };
   },
   computed: {
@@ -112,10 +111,10 @@ export default {
   methods: {
     retrieveQuestion() {
       this.$store.dispatch('retrieveQuestion', { id: this.$route.params.id })
-      .then(() =>{
-        this.num_like = (this.$store.state.question.likeVoterIds).length;
-        this.num_dislike = (this.$store.state.question.dislikeVoterIds).length;
-      });
+        .then(() => {
+          this.num_like = (this.$store.state.question.likeVoterIds).length;
+          this.num_dislike = (this.$store.state.question.dislikeVoterIds).length;
+        });
     },
     updateQuestion({ title, body }) {
       this.$store.dispatch('updateQuestion', { id: this.$route.params.id, title, body });
