@@ -26,6 +26,20 @@
       </div>
       <hr>
     </div>
+
+    <button
+        type="submit"
+        @click="move_pre"
+    />
+    前の５件
+    <button
+        type="submit"
+        @click="move_next"
+    />
+    次の５件
+
+    <!-- {{ this.skip }} -->
+
   </div>
 </template>
 
@@ -33,17 +47,34 @@
 
 export default {
   name: 'QuestionListPage',
+  data() {
+    return {
+      limit: 5,
+      skip: 0,
+    };
+  },
   computed: {
     questions() {
       return this.sortBy(this.$store.state.questions, 'createdAt').reverse();
     },
   },
   mounted() {
-    this.retrieveQuestions();
+    this.retrieveQuestions2();
   },
   methods: {
     retrieveQuestions() {
       this.$store.dispatch('retrieveQuestions');
+    },
+    retrieveQuestions2() {
+      this.$store.dispatch('retrieveQuestions2', {limit: this.limit, skip: this.skip});
+    },
+    move_next() {
+      this.skip = this.skip + 5;
+      this.retrieveQuestions2();
+    },
+    move_pre() {
+      this.skip = this.skip - 5;
+      this.retrieveQuestions2();
     },
   },
 };
