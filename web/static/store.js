@@ -237,9 +237,9 @@ export const actions = {
       {},
       { headers: { Authorization: key } },
     );
-      // .then(({ data }) => {
-      //   commit('updateQuestion', data);
-      // });
+    // .then(({ data }) => {
+    //   commit('updateQuestion', data);
+    // });
   },
 };
 

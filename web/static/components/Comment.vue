@@ -8,7 +8,7 @@
             @submit.prevent="updateQuestionComment"
           >
             <div class="form-group">
-              <label for="form-body">Body</label>
+              <label for="form-body"></label>
               <input
                 id="form-body"
                 v-model="editingBody"
