@@ -151,8 +151,8 @@ export default {
         });
     },
     vote_like() {
-      console.dir(this.$store.state.question);
-      console.log((this.$store.state.question.likeVoterIds).length);
+      // console.dir(this.$store.state.question);
+      // console.log((this.$store.state.question.likeVoterIds).length);
       // this.num_like = (this.$store.state.question.likeVoterIds).length;
       this.$store.dispatch('addVote', { questionId: this.$route.params.id, voteType: "like_vote" })
         .then(() => {
