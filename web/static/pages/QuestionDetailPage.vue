@@ -11,7 +11,7 @@
     <div class="page-title">
       {{ `${(answers).length}` }} 件の回答
     </div>
-
+ <hr>
     <!-- <p>{{ `print1: ${(answers).length}` }}</p> -->
     <div
       v-for="answer in answers"

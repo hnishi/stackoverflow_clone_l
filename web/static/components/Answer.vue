@@ -191,4 +191,7 @@ export default {
 .comment-list {
   margin-left: 10px;
 }
+.question-form {
+  margin-left: 30px;
+}
 </style>

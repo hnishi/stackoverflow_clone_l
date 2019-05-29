@@ -3,7 +3,7 @@
     <div class="page-title">
       質問を見る
     </div>
-    <div>
+    <div class="title">
       <router-link to="question/create">
         質問する
       </router-link>
@@ -50,8 +50,25 @@ export default {
 </script>
 
 <style scoped>
-.title {
+.title:hover {
+    display: inline-block;
+    animation: hurueru .1s  infinite;
+}
+.additional:hover {
+    display: inline-block;
+    animation: hurueru .1s  infinite;
+}
+
+@keyframes hurueru {
+    0% {transform: translate(0px, 0px) rotateZ(0deg)}
+    25% {transform: translate(2px, 2px) rotateZ(1deg)}
+    50% {transform: translate(0px, 2px) rotateZ(0deg)}
+    75% {transform: translate(2px, 0px) rotateZ(-1deg)}
+    100% {transform: translate(0px, 0px) rotateZ(0deg)}
+}
+/* .title {
   text-overflow: ellipsis;
   overflow: hidden;
-}
+} */
+
 </style>
