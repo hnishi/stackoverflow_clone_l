@@ -28,18 +28,17 @@
     </div>
 
     <button
-        type="submit"
-        @click="move_pre"
+      type="submit"
+      @click="move_pre"
     />
     前の５件
     <button
-        type="submit"
-        @click="move_next"
+      type="submit"
+      @click="move_next"
     />
     次の５件
 
     <!-- {{ this.skip }} -->
-
   </div>
 </template>
 
@@ -66,7 +65,7 @@ export default {
       this.$store.dispatch('retrieveQuestions');
     },
     retrieveQuestions2() {
-      this.$store.dispatch('retrieveQuestions2', {limit: this.limit, skip: this.skip});
+      this.$store.dispatch('retrieveQuestions2', { limit: this.limit, skip: this.skip });
     },
     move_next() {
       this.skip = this.skip + 5;
