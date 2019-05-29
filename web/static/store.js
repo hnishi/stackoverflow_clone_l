@@ -231,6 +231,16 @@ export const actions = {
         commit('setBook', data);
       });
   },
+  addVote({ commit, state: { key } }, { questionId, voteType }) {
+    return HttpClient.post(
+      `/v1/question/${questionId}/vote/${voteType}`,
+      {},
+      { headers: { Authorization: key } },
+    );
+      // .then(({ data }) => {
+      //   commit('updateQuestion', data);
+      // });
+  },
 };
 
 export const store = new Vuex.Store({
