@@ -80,7 +80,7 @@ export default {
 </script>
 
 <style scoped>
-.title {
+/* .title {
   display: inline-block;
   transition: .3s;
   -webkit-transform: scale(1);
@@ -89,8 +89,8 @@ export default {
 .title:hover {
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
-}
-/* .title:hover {
+} */
+.title:hover {
     display: inline-block;
     animation: hurueru .1s  infinite;
 }
@@ -106,7 +106,7 @@ export default {
     50% {transform: translate(0px, 2px) rotateZ(0deg)}
     75% {transform: translate(2px, 0px) rotateZ(-1deg)}
     100% {transform: translate(0px, 0px) rotateZ(0deg)}
-} */
+}
 /* .title {
   text-overflow: ellipsis;
   overflow: hidden;

@@ -71,7 +71,15 @@
           >
             {{ question.body }}
           </div>
-          <div class="additional">
+          
+          <span class="additional_sub">
+            <button
+      id="jaJP"
+      type="button"
+      value="Say"
+      class="speech_btn"
+      @click="say_text"
+    />
             Posted at {{ question.createdAt }}
             by <router-link :to="{ name: 'UserDetailPage', params: { id: question.userId }}">
               {{ question.userId }}
@@ -87,18 +95,10 @@
                 質問の編集
               </button>
             </span>
-          </div>
+          </span>
         </div>
       </div>
     </div>
-
-    <button
-      id="jaJP"
-      type="button"
-      value="Say"
-      class="speech_btn"
-      @click="say_text"
-    />
 
     <hr>
     <div>
@@ -335,8 +335,15 @@ export default {
 }
 .speech_btn{
     border: 0px;
+    margin-top: 10px;
     width:50px;
-    height:40px;
+    height:35px;
     background: url(../imgs/speech.png) left top no-repeat;
+}
+.additional_sub{
+  color: #aaa;
+  font-size: small;
+  margin-top: 100px;
+  vertical-align:super;
 }
 </style>
