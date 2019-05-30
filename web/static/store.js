@@ -60,9 +60,6 @@ export const mutations = {
   setBooks(state, books) {
     state.books = books;
   },
-  updateVote(state, vote) {
-    state.vote = vote;
-  },
 };
 
 export const actions = {
