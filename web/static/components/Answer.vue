@@ -9,7 +9,7 @@
           >
             <div class="form-group">
               <label for="form-body">Body</label>
-              <input
+              <textarea
                 id="form-body"
                 v-model="editingAnswerBody"
                 :maxlength="bodyMaxLength"
@@ -17,7 +17,7 @@
                 type="text"
                 minlength="1"
                 required
-              >
+              />
             </div>
             <div class="form-group">
               <button
