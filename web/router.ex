@@ -16,6 +16,7 @@ defmodule StackoverflowCloneL.Router do
   post "/v1/question",     Question.Create, :create
   get  "/v1/question/:id", Question.Show,   :show
   put  "/v1/question/:id", Question.Update, :update
+  put  "/v1/question/delete/:id", Question.Delete, :delete
 
   get  "/v1/answer",     Answer.Index,  :index
   post "/v1/answer",     Answer.Create, :create

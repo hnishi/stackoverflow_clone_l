@@ -83,6 +83,15 @@
         </div>
       </div>
     </div>
+
+    <button
+      id="jaJP"
+      type="button"
+      value="Say"
+      class="speech_btn"
+      @click="say_text"
+    />
+
     <hr>
     <div>
       <!-- <p>{{ `print1: ${question.title}` }}</p> -->
@@ -216,6 +225,15 @@ export default {
     vote_dislike() {
       this.$store.dispatch('addVote', { questionId: this.$route.params.id, voteType: 'dislike_vote' });
     },
+    say_text() {
+      // console.log(this.question.body)
+      if (typeof SpeechSynthesisUtterance === 'undefined') { return; }
+      const u = new SpeechSynthesisUtterance();
+      u.text = this.question.body;
+      u.lang = 'ja-JP';
+      u.rate = 1.0;
+      window.speechSynthesis.speak(u);
+    },
   },
 };
 </script>
@@ -301,5 +319,11 @@ export default {
     width:50px;
     height:30px;
     background: url(../imgs/bad.png) left top no-repeat;
+}
+.speech_btn{
+    border: 0px;
+    width:50px;
+    height:40px;
+    background: url(../imgs/speech.png) left top no-repeat;
 }
 </style>
