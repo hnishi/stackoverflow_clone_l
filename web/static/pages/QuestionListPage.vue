@@ -44,7 +44,7 @@
       />
       前の５件
     </span>
-    <span v-if="skip + limit <= this.$store.state.num_questions">
+    <span v-if="skip + limit < this.$store.state.num_questions">
       <button
         class="next_page_btn"
         @click="move_next"
