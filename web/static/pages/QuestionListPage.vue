@@ -43,10 +43,10 @@
     </span>
     <br>
     <span v-if="skip < this.$store.state.num_questions - limit">
-      {{ this.$store.state.num_questions }} 件の質問中、{{ skip }} - {{ skip + limit }} 件を表示中
+      {{ this.$store.state.num_questions }} 件の質問中、{{ skip + 1 }} - {{ skip + limit }} 件を表示中
     </span>
     <span v-if="skip >= this.$store.state.num_questions - limit">
-      {{ this.$store.state.num_questions }} 件の質問中、{{ skip }} - {{ this.$store.state.num_questions }} 件を表示中
+      {{ this.$store.state.num_questions }} 件の質問中、{{ skip + 1 }} - {{ this.$store.state.num_questions }} 件を表示中
     </span>
 
     <!-- {{ this.skip }} -->
