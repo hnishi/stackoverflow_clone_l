@@ -18,6 +18,16 @@
           {{ question.title }}
         </router-link>
       </h5>
+      <!-- <div>
+      like: {{ question.likeVoterIds.length }}, dislike: {{ question.dislikeVoterIds.length }}
+      </div> -->
+      <div>
+        <!-- <p>{{ `print1: ${question.title}` }}</p> -->
+        <img src="../imgs/like_small.png">
+        {{ question.likeVoterIds.length }}
+        <img src="../imgs/dislike_small.png">
+        {{ question.dislikeVoterIds.length }}
+      </div>
       <div class="additional">
         Posted at {{ question.createdAt }}
         by <router-link :to="{ name: 'UserDetailPage', params: { id: question.userId }}">
