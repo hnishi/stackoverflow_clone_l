@@ -98,20 +98,14 @@ export default {
 <style scoped>
 /* .title {
   display: inline-block;
-  transition: .3s; */
-  /*斜め*/
-  /* padding: 0 .3em;
-  background-image: linear-gradient(to right, rgba(0,0,0,0) 50%, rgba(46,204,113,1) 50%);
-  background-position: 0 0;
-  background-size: 200% auto;
   transition: .3s;
+  -webkit-transform: scale(1);
+  transform: scale(1);
+}
+.title:hover {
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
 } */
-/* .title:hover { */
-  /*斜め*/
-  /* transform: rotate(5deg); */
-  /* background-position: -100% 0;
-  color: #fff; */
-/* } */
 .title:hover {
     display: inline-block;
     animation: hurueru .1s  infinite;
