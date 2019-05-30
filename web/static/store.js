@@ -10,6 +10,7 @@ export const state = {
   question: {},
   answers: [],
   questions: [],
+  num_questions: 0,
   email: localStorage.getItem('email') || '',
   key: localStorage.getItem('key') || '',
   id: localStorage.getItem('id') || '',
@@ -102,6 +103,7 @@ export const actions = {
   retrieveQuestions({ commit }, { userId } = {}) {
     return HttpClient.get('/v1/question', { params: { userId } })
       .then(({ data }) => {
+        state.num_questions = data.length;
         commit('updateQuestions', data);
       });
   },
