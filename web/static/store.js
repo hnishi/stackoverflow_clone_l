@@ -60,9 +60,6 @@ export const mutations = {
   setBooks(state, books) {
     state.books = books;
   },
-  updateVote(state, vote) {
-    state.vote = vote;
-  },
 };
 
 export const actions = {
@@ -247,6 +244,16 @@ export const actions = {
       .then(({ data }) => {
         commit('updateQuestions', data);
       });
+  },
+  deleteQuestion({ dispatch, state: { key } }, {
+    questionId,
+  }) {
+    return HttpClient.put(
+      `/v1/question/delete/${questionId}`,
+      {},
+      { headers: { Authorization: key } },
+    )
+      .then(() => dispatch('retrieveQuestions'));
   },
 };
 

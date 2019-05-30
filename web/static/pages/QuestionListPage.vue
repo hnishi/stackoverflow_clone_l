@@ -28,12 +28,12 @@
     </div>
 
     <button
-      type="submit"
+      class="pre_page_btn"
       @click="move_pre"
     />
     前の５件
     <button
-      type="submit"
+      class="next_page_btn"
       @click="move_next"
     />
     次の５件
@@ -111,5 +111,17 @@ export default {
   text-overflow: ellipsis;
   overflow: hidden;
 } */
-
+.pre_page_btn{
+    border: 0px;
+    width:50px;
+    height:35px;
+    background: url(../imgs/arrow_left.png) left top no-repeat;
+}
+.next_page_btn{
+    margin-left: 15px;
+    border: 0px;
+    width:50px;
+    height:35px;
+    background: url(../imgs/arrow_right.png) left top no-repeat;
+}
 </style>

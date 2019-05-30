@@ -54,6 +54,14 @@
               >
                 キャンセル
               </button>
+
+              <button
+                class="btn btn-primary mb-2"
+                type="submit"
+                @click="deleteQuestion"
+              >
+                質問の削除
+              </button>
             </div>
           </form>
         </div>
@@ -233,6 +241,11 @@ export default {
       u.lang = 'ja-JP';
       u.rate = 1.0;
       window.speechSynthesis.speak(u);
+    },
+    deleteQuestion() {
+      // console.log(this.question.body)
+      this.$store.dispatch('deleteQuestion', { questionId: this.$route.params.id });
+      this.$router.push({ path: '/' });
     },
   },
 };
