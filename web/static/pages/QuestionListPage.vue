@@ -27,16 +27,27 @@
       <hr>
     </div>
 
-    <button
-      class="pre_page_btn"
-      @click="move_pre"
-    />
-    前の５件
-    <button
-      class="next_page_btn"
-      @click="move_next"
-    />
-    次の５件
+    <span v-if="skip >= limit">
+      <button
+        class="pre_page_btn"
+        @click="move_pre"
+      />
+      前の５件
+    </span>
+    <span v-if="skip + limit <= this.$store.state.num_questions">
+      <button
+        class="next_page_btn"
+        @click="move_next"
+      />
+      次の５件
+    </span>
+    <br>
+    <span v-if="skip < this.$store.state.num_questions - limit">
+      {{ this.$store.state.num_questions }} 件の質問中、{{ skip + 1 }} - {{ skip + limit }} 件を表示中
+    </span>
+    <span v-if="skip >= this.$store.state.num_questions - limit">
+      {{ this.$store.state.num_questions }} 件の質問中、{{ skip + 1 }} - {{ this.$store.state.num_questions }} 件を表示中
+    </span>
 
     <!-- {{ this.skip }} -->
   </div>
@@ -50,6 +61,7 @@ export default {
     return {
       limit: 5,
       skip: 0,
+      num_questions: 0,
     };
   },
   computed: {
@@ -58,7 +70,11 @@ export default {
     },
   },
   mounted() {
-    this.retrieveQuestions2();
+    // console.log(this.retrieveQuestions());
+    this.$store.dispatch('retrieveQuestions')
+      .then(() => {
+        this.retrieveQuestions2();
+      });
   },
   methods: {
     retrieveQuestions() {
@@ -118,7 +134,7 @@ export default {
     background: url(../imgs/arrow_left.png) left top no-repeat;
 }
 .next_page_btn{
-    margin-left: 15px;
+    /* margin-left: 15px; */
     border: 0px;
     width:50px;
     height:35px;
