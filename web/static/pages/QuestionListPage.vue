@@ -80,6 +80,22 @@ export default {
 </script>
 
 <style scoped>
+/* .title {
+  display: inline-block;
+  transition: .3s; */
+  /*斜め*/
+  /* padding: 0 .3em;
+  background-image: linear-gradient(to right, rgba(0,0,0,0) 50%, rgba(46,204,113,1) 50%);
+  background-position: 0 0;
+  background-size: 200% auto;
+  transition: .3s;
+} */
+/* .title:hover { */
+  /*斜め*/
+  /* transform: rotate(5deg); */
+  /* background-position: -100% 0;
+  color: #fff; */
+/* } */
 .title:hover {
     display: inline-block;
     animation: hurueru .1s  infinite;
@@ -88,6 +104,7 @@ export default {
     display: inline-block;
     animation: hurueru .1s  infinite;
 }
+
 
 @keyframes hurueru {
     0% {transform: translate(0px, 0px) rotateZ(0deg)}
