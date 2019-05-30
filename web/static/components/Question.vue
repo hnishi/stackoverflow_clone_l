@@ -85,6 +85,9 @@
     </div>
     <hr>
     <div>
+
+      <input type="button" id="jaJP" value="Say">
+
       <!-- <p>{{ `print1: ${question.title}` }}</p> -->
       <button
         class="good_btn"
@@ -215,6 +218,16 @@ export default {
     },
     vote_dislike() {
       this.$store.dispatch('addVote', { questionId: this.$route.params.id, voteType: 'dislike_vote' });
+    },
+    say_text() {
+      document.getElementById("jaJP").addEventListener("click", function (e) {
+      if (typeof SpeechSynthesisUtterance == "undefined") { return }
+        var u = new SpeechSynthesisUtterance();
+        u.text = this.question.body;
+        u.lang = 'ja-JP';
+        u.rate = 1.0;
+        window.speechSynthesis.speak(u);
+      })
     },
   },
 };
