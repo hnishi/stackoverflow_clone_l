@@ -53,7 +53,8 @@ defmodule StackoverflowCloneL.Controller.Question.Index do
     #IO.inspect params #["limit"], label: "limit!!!"
     %Dodai.RetrieveDedicatedDataEntityListRequestQuery{
       query: query,
-      sort:  %{"_id" => 1},
+      # sort:  %{"_id" => 1},
+      sort:  %{"createdAt" => -1},
       #limit: 3,
       limit: params[:limit],
       skip: params[:skip],

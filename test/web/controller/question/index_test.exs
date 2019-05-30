@@ -11,7 +11,7 @@ defmodule StackoverflowCloneL.Controller.Question.IndexTest do
         limit: nil,
         skip:  nil,
         query: %{},
-        sort:  %{"_id" => 1}
+        sort:  %{"createdAt" => -1}
       }
 
       %Dodai.RetrieveDedicatedDataEntityListSuccess{body: [QuestionData.dodai()]}
