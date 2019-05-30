@@ -21,3 +21,7 @@ a {
   color: #aaa;
   font-size: small;
 }
+@import url('https://fonts.googleapis.com/css?family=Sawarabi+Gothic');
+div{
+  font-family: 'Sawarabi Gothic','Hiragino Kaku Gothic Pro','ヒラギノ角ゴ Pro W3','メイリオ',Meiryo,'ＭＳ Ｐゴシック',sans-serif;
+}

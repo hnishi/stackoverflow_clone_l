@@ -16,7 +16,7 @@
     </div>
     <div v-else>
       <div class="page-title">
-        <h1>{{ question.title }}</h1>
+        <h2>{{ question.title }}</h2>
       </div>
     </div>
     <hr>
@@ -71,15 +71,15 @@
           >
             {{ question.body }}
           </div>
-          
+
           <span class="additional_sub">
             <button
-      id="jaJP"
-      type="button"
-      value="Say"
-      class="speech_btn"
-      @click="say_text"
-    />
+              id="jaJP"
+              type="button"
+              value="Say"
+              class="speech_btn"
+              @click="say_text"
+            />
             Posted at {{ question.createdAt }}
             by <router-link :to="{ name: 'UserDetailPage', params: { id: question.userId }}">
               {{ question.userId }}
