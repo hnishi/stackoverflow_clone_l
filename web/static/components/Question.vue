@@ -16,7 +16,7 @@
     </div>
     <div v-else>
       <div class="page-title">
-        <h1>{{ question.title }}</h1>
+        <h2>{{ question.title }}</h2>
       </div>
     </div>
     <hr>
