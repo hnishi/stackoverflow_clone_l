@@ -248,6 +248,16 @@ export const actions = {
         commit('updateQuestions', data);
       });
   },
+  deleteQuestion({ dispatch, state: { key } }, {
+    questionId,
+  }) {
+    return HttpClient.put(
+      `/v1/question/delete/${questionId}`,
+      {},
+      { headers: { Authorization: key } },
+    )
+      .then(() => dispatch('retrieveQuestions'));
+  },
 };
 
 export const store = new Vuex.Store({
